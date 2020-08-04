@@ -3,7 +3,7 @@ entries:
   pc:
   - apiVersion: v1
     appVersion: V.0.1
-    created: "2020-08-04T09:50:34.3518051Z"
+    created: "2020-08-04T09:57:47.2944533Z"
     description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql)
       interface beschikbaar.&#039;'
     digest: 5f4b25cf1861cf776fa867342b4f4fb7f8bc13cd8f7c96c7d41b9a387823364a
@@ -16,14 +16,14 @@ entries:
   vsbe:
   - apiVersion: v1
     appVersion: V.0.1
-    created: "2020-08-04T09:50:34.3588368Z"
+    created: "2020-08-04T09:57:47.3014423Z"
     description: Naast deze JSON rest API is er ook een [graphql](/graphql) interface
       beschikbaar.
-    digest: 42f66e6e436641235fec9d57149088ef8d8f09ffb86e09aeb491e859bb43e6ec
+    digest: 754a6ad386ae08363fa36301d0fdc8ae3207b6417507184ccbe8dd3837011265
     home: pc.zaakonline.nl
     icon: pc.zaakonline.nl
     name: vsbe
     urls:
     - vsbe-0.1.0.tgz
     version: 0.1.0
-generated: "2020-08-04T09:50:34.3388275Z"
+generated: "2020-08-04T09:57:47.2879984Z"

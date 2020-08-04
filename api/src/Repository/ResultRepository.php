@@ -16,7 +16,7 @@ class ResultRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Check::class);
+        parent::__construct($registry, Result::class);
     }
 
     // /**
