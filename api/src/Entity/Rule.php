@@ -71,9 +71,9 @@ class Rule
     private $id;
 
     /**
-     * @var string Name of this rule
+     * @var string Code of this rule
      *
-     * @example Rule
+     * @example code
      *
      * @Gedmo\Versioned
      * @Assert\NotNull
@@ -83,10 +83,10 @@ class Rule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $code;
 
     /**
-     * @var string Url of request type this rule applies to.
+     * @var string Url of this rule applies to.
      *
      * @example https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
      *
@@ -99,7 +99,7 @@ class Rule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $vtc;
+    private $object;
 
     /**
      * @var string Property name
@@ -134,13 +134,44 @@ class Rule
     /**
      * @Groups({"read","write"})
      * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Check", mappedBy="rules")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Result", mappedBy="rules")
      */
-    private $checks;
+    private $results;
+
+    /**
+     * @var string Operation
+     *
+     * @example operation
+     *
+     * @Gedmo\Versioned
+     * @Assert\NotNull
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $operation;
+
+    /**
+     * @var string Url of endpoint.
+     *
+     * @example https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $serviceEndpoint;
 
     public function __construct()
     {
-        $this->checks = new ArrayCollection();
+        $this->results = new ArrayCollection();
 
     }
 
@@ -149,26 +180,26 @@ class Rule
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCode(): ?string
     {
-        return $this->name;
+        return $this->code;
     }
 
-    public function setName(string $name): self
+    public function setCode(string $code): self
     {
-        $this->name = $name;
+        $this->code = $code;
 
         return $this;
     }
 
-    public function getVtc(): ?string
+    public function getObject(): ?string
     {
-        return $this->vtc;
+        return $this->object;
     }
 
-    public function setVtc(string $vtc): self
+    public function setObject(string $object): self
     {
-        $this->vtc = $vtc;
+        $this->object = $object;
 
         return $this;
     }
@@ -197,27 +228,51 @@ class Rule
         return $this;
     }
 
-    /**
-     * @return Collection|Check[]
-     */
-    public function getChecks(): Collection
+    public function getOperation(): ?string
     {
-        return $this->checks;
+        return $this->operation;
     }
 
-    public function addCheck(Check $check): self
+    public function setOperation(string $operation): self
     {
-        if (!$this->checks->contains($check)) {
-            $this->checks[] = $check;
+        $this->operation = $operation;
+
+        return $this;
+    }
+
+    public function getServiceEndpoint(): ?string
+    {
+        return $this->serviceEndpoint;
+    }
+
+    public function setServiceEndpoint(string $serviceEndpoint): self
+    {
+        $this->serviceEndpoint = $serviceEndpoint;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Result[]
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): self
+    {
+        if (!$this->results->contains($result)) {
+            $this->results[] = $result;
         }
 
         return $this;
     }
 
-    public function removeCheck(Check $check): self
+    public function removeResult(Result $result): self
     {
-        if ($this->checks->contains($check)) {
-            $this->checks->removeElement($check);
+        if ($this->results->contains($result)) {
+            $this->results->removeElement($result);
         }
 
         return $this;

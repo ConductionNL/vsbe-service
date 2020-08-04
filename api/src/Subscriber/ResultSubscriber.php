@@ -2,7 +2,7 @@
 
 namespace App\Subscriber;
 
-use App\Service\CheckService;
+use App\Service\ResultService;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,16 +12,16 @@ use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Symfony\Component\Serializer\SerializerInterface;
 
 
-class CheckSubscriber implements EventSubscriberInterface
+class ResultSubscriber implements EventSubscriberInterface
 {
     private $params;
-    private $checkService;
+    private $resultService;
     private $serializer;
     private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params, CheckService $checkService, CommongroundService $commonGroundService, SerializerInterface $serializer)
+    public function __construct(ParameterBagInterface $params, ResultService $resultService, CommongroundService $commonGroundService, SerializerInterface $serializer)
     {
-        $this->checkService = $checkService;
+        $this->resultService = $resultService;
         $this->params = $params;
         $this->commonGroundService = $commonGroundService;
         $this->serializer = $serializer;
@@ -36,7 +36,7 @@ class CheckSubscriber implements EventSubscriberInterface
 
     public function Check(ViewEvent $event)
     {
-        $check = $event->getControllerResult();
+        $result = $event->getControllerResult();
 
     }
 }

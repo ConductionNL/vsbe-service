@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=CheckRepository::class)
+ * @ORM\Entity(repositoryClass=ResultRepository::class)
  * @ApiResource(
  *     attributes={"pagination_items_per_page"=30},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "put",
  *          "delete",
  *          "get_change_logs"={
- *              "path"="/checks/{id}/change_log",
+ *              "path"="/results/{id}/change_log",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Changelogs",
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              }
  *          },
  *          "get_audit_trail"={
- *              "path"="/checks/{id}/audit_trail",
+ *              "path"="/results/{id}/audit_trail",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Audittrail",
@@ -54,7 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class)
  */
-class Check
+class Result
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
@@ -111,7 +111,7 @@ class Check
     /**
      * @Groups({"read","write"})
      * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Rule", inversedBy="checks")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Rule", inversedBy="results")
      */
     private $rules;
 

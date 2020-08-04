@@ -1942,21 +1942,21 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
-  /checks:
+  /results:
     get:
       tags:
-        - Check
-      operationId: getCheckCollection
-      summary: 'Retrieves the collection of Check resources.'
+        - Result
+      operationId: getResultCollection
+      summary: 'Retrieves the collection of Result resources.'
       responses:
         200:
-          description: 'Check collection response'
+          description: 'Result collection response'
           content:
             application/ld+json:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Check:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -1966,7 +1966,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Check:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -1976,57 +1976,57 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
       parameters:
         -
           name: 'order[id]'
@@ -2220,58 +2220,58 @@ paths:
         - application/health+json
     post:
       tags:
-        - Check
-      operationId: postCheckCollection
-      summary: 'Creates a Check resource.'
+        - Result
+      operationId: postResultCollection
+      summary: 'Creates a Result resource.'
       responses:
         201:
-          description: 'Check resource created'
+          description: 'Result resource created'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
           links:
-            GetCheckItem:
+            GetResultItem:
               parameters:
                 id: '$response.body#/id'
-              operationId: getCheckItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /checks/{id}`.'
+              operationId: getResultItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /results/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -2280,44 +2280,44 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Check-write'
-        description: 'The new Check resource'
+              $ref: '#/components/schemas/Result-write'
+        description: 'The new Result resource'
       parameters:
         -
           name: Authorization
@@ -2348,12 +2348,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/checks/{id}':
+  '/results/{id}':
     get:
       tags:
-        - Check
-      operationId: getCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: getResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2434,56 +2434,56 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
     put:
       tags:
-        - Check
-      operationId: putCheckItem
-      summary: 'Replaces the Check resource.'
+        - Result
+      operationId: putResultItem
+      summary: 'Replaces the Result resource.'
       parameters:
         -
           name: id
@@ -2522,47 +2522,47 @@ paths:
           in: header
       responses:
         200:
-          description: 'Check resource updated'
+          description: 'Result resource updated'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         400:
           description: 'Invalid input'
         404:
@@ -2571,52 +2571,52 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Check-write'
-        description: 'The updated Check resource'
+              $ref: '#/components/schemas/Result-write'
+        description: 'The updated Result resource'
     delete:
       tags:
-        - Check
-      operationId: deleteCheckItem
-      summary: 'Removes the Check resource.'
+        - Result
+      operationId: deleteResultItem
+      summary: 'Removes the Result resource.'
       responses:
         204:
-          description: 'Check resource deleted'
+          description: 'Result resource deleted'
         404:
           description: 'Resource not found'
       parameters:
@@ -2655,12 +2655,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/checks/{id}/audit_trail':
+  '/results/{id}/audit_trail':
     get:
       tags:
-        - Check
-      operationId: get_audit_trailCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: get_audit_trailResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2741,57 +2741,57 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
-  '/checks/{id}/change_log':
+  '/results/{id}/change_log':
     get:
       tags:
-        - Check
-      operationId: get_change_logsCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: get_change_logsResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2872,47 +2872,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
@@ -4297,7 +4297,7 @@ components:
         '@type':
           readOnly: true
           type: string
-    Check-read:
+    Result-read:
       type: object
       description: ''
       properties:
@@ -4329,7 +4329,7 @@ components:
       required:
         - vrc
         - brp
-    Check-write:
+    Result-write:
       type: object
       description: ''
       required:
@@ -4354,7 +4354,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rule-write'
-    'Check:jsonld-read':
+    'Result:jsonld-read':
       type: object
       description: ''
       properties:
@@ -4395,7 +4395,7 @@ components:
       required:
         - vrc
         - brp
-    'Check:jsonld-write':
+    'Result:jsonld-write':
       type: object
       description: ''
       required:
@@ -4454,10 +4454,10 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
           type: array
           items:
-            $ref: '#/components/schemas/Check-read'
+            $ref: '#/components/schemas/Result-read'
       required:
         - name
         - vtc
@@ -4486,10 +4486,10 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
           type: array
           items:
-            $ref: '#/components/schemas/Check-write'
+            $ref: '#/components/schemas/Result-write'
     'Rule:jsonld-read':
       type: object
       description: ''
@@ -4524,10 +4524,10 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
           type: array
           items:
-            $ref: '#/components/schemas/Check:jsonld-read'
+            $ref: '#/components/schemas/Result:jsonld-read'
       required:
         - name
         - vtc
@@ -4565,12 +4565,12 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
           type: array
           items:
-            $ref: '#/components/schemas/Check:jsonld-write'
+            $ref: '#/components/schemas/Result:jsonld-write'
 definitions:
-  Check-read:
+  Result-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
@@ -4594,7 +4594,7 @@ definitions:
     required:
       - vrc
       - brp
-  Check-write:
+  Result-write:
     properties:
       vrc:
         description: 'Url of request this check refers to.'
@@ -4641,7 +4641,7 @@ definitions:
         type: string
         example: value
         maxLength: 255
-      checks: []
+      results: []
     required:
       - name
       - vtc
@@ -4670,7 +4670,7 @@ definitions:
         type: string
         example: value
         maxLength: 255
-      checks: []
+      results: []
     required:
       - name
       - vtc
@@ -4780,12 +4780,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 06:58:01'
+        example: '2020-08-04 09:09:26'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 06:58:01'
+        example: '2020-08-04 09:09:26'
     required: []
   AuditTrail-write:
     properties:
@@ -4833,12 +4833,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 06:58:01'
+        example: '2020-08-04 09:09:26'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 06:58:01'
+        example: '2020-08-04 09:09:26'
     required: []
   ChangeLog-write:
     properties:
@@ -4850,7 +4850,7 @@ definitions:
     required: []
 tags:
   -
-    name: Check
+    name: Result
     description: |
       
       
