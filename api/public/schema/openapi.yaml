@@ -1,18 +1,18 @@
 openapi: 3.0.2
 info:
-  title: 'Proto component commonground'
+  title: 'Very small business engine'
   version: V.0.1
   description: |
     API Details
-    - Component: Proto component commonground
-    - Reference: pc
+    - Component: Very small business engine
+    - Reference: vsbe
     - Enviroment: dev
     - Version: V.0.1
-    - Repository: [online](https://github.com/ConductionNL/proto-component) / [zip](https://github.com/ConductionNL/proto-component/archive/master.zip)
-    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/pc-php) 
-    - Datamodel: [postman](/schema/pc.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Repository: [online](https://github.com/ConductionNL/vsbe-service) / [zip](https://github.com/ConductionNL/vsbe-service/archive/master.zip)
+    - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsbe-php) 
+    - Datamodel: [postman](/schema/vsbe.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /audit_trails:
@@ -1942,6 +1942,2211 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
+  /results:
+    get:
+      tags:
+        - Result
+      operationId: getResultCollection
+      summary: 'Retrieves the collection of Result resources.'
+      responses:
+        200:
+          description: 'Result collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Result-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[object]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[qc]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[uri]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: object
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'object[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: qc
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'qc[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: uri
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'uri[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Result
+      operationId: postResultCollection
+      summary: 'Creates a Result resource.'
+      responses:
+        201:
+          description: 'Result resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+          links:
+            GetResultItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getResultItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /results/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Result:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Result:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+        description: 'The new Result resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/results/{id}':
+    get:
+      tags:
+        - Result
+      operationId: getResultItem
+      summary: 'Retrieves a Result resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Result resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Result
+      operationId: putResultItem
+      summary: 'Replaces the Result resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Result resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Result:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Result:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Result-write'
+        description: 'The updated Result resource'
+    delete:
+      tags:
+        - Result
+      operationId: deleteResultItem
+      summary: 'Removes the Result resource.'
+      responses:
+        204:
+          description: 'Result resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/results/{id}/audit_trail':
+    get:
+      tags:
+        - Result
+      operationId: get_audit_trailResultItem
+      summary: 'Retrieves a Result resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Result resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/results/{id}/change_log':
+    get:
+      tags:
+        - Result
+      operationId: get_change_logsResultItem
+      summary: 'Retrieves a Result resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Result resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Result:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Result-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  /rules:
+    get:
+      tags:
+        - Rule
+      operationId: getRuleCollection
+      summary: 'Retrieves the collection of Rule resources.'
+      responses:
+        200:
+          description: 'Rule collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Rule:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/json+ld:
+              schema:
+                type: object
+                properties:
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Rule:jsonld-read' } }
+                  'hydra:totalItems': { type: integer, minimum: 0 }
+                  'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
+                  'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
+                required:
+                  - 'hydra:member'
+            application/hal+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rule-read'
+      parameters:
+        -
+          name: 'order[id]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[code]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[object]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[property]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[value]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[operation]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[serviceEndpoint]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: id
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'id[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: code
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'code[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: object
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'object[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: property
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'property[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: value
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'value[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: operation
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'operation[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: serviceEndpoint
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'serviceEndpoint[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: page
+          in: query
+          required: false
+          description: 'The collection page number'
+          schema:
+            type: integer
+            default: 1
+        -
+          name: limit
+          in: query
+          required: false
+          description: 'The number of items per page'
+          schema:
+            type: integer
+            default: 30
+            minimum: 0
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      produces:
+        - application/health+json
+    post:
+      tags:
+        - Rule
+      operationId: postRuleCollection
+      summary: 'Creates a Rule resource.'
+      responses:
+        201:
+          description: 'Rule resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+          links:
+            GetRuleItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getRuleItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /rules/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Rule:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Rule:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+        description: 'The new Rule resource'
+      parameters:
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/rules/{id}':
+    get:
+      tags:
+        - Rule
+      operationId: getRuleItem
+      summary: 'Retrieves a Rule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rule resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+    put:
+      tags:
+        - Rule
+      operationId: putRuleItem
+      summary: 'Replaces the Rule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+      responses:
+        200:
+          description: 'Rule resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Rule:jsonld-write'
+          application/json+ld:
+            schema:
+              $ref: '#/components/schemas/Rule:jsonld-write'
+          application/hal+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+hal:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+vnd.api:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/health+json:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/json+health:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          application/x-yaml:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          text/csv:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Rule-write'
+        description: 'The updated Rule resource'
+    delete:
+      tags:
+        - Rule
+      operationId: deleteRuleItem
+      summary: 'Removes the Rule resource.'
+      responses:
+        204:
+          description: 'Rule resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+  '/rules/{id}/audit_trail':
+    get:
+      tags:
+        - Rule
+      operationId: get_audit_trailRuleItem
+      summary: 'Retrieves a Rule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rule resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
+  '/rules/{id}/change_log':
+    get:
+      tags:
+        - Rule
+      operationId: get_change_logsRuleItem
+      summary: 'Retrieves a Rule resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        -
+          name: Authorization
+          description: 'The JWT of the entity performing the request'
+          in: header
+        -
+          name: API-Version
+          description: 'The version of the API conform [Landelijke API-strategie.](https://geonovum.github.io/KP-APIs/#versioning)'
+          example: 1.0.1
+          in: header
+        -
+          name: X-NLX-Logrecord-ID
+          description: 'A  globally unique id of the request, which makes a request traceable throughout the network.'
+          in: header
+        -
+          name: X-NLX-Request-Process-Id
+          description: 'A process id for purpose registration (doelbinding)'
+          in: header
+        -
+          name: X-NLX-Request-Data-Elements
+          description: 'A list of requested data elements'
+          in: header
+        -
+          name: X-NLX-Request-Data-Subject
+          description: 'A key-value list of data subjects related to this request. e.g. `bsn=12345678, kenteken=ab-12-fg`'
+          in: header
+        -
+          name: X-NLX-Audit-Clarification
+          description: 'A clarification as to why a request has been made  (doelbinding)'
+          in: header
+        -
+          name: Link
+          description: 'A [websub](https://www.w3.org/TR/websub/#discovery) header like <https://hub.example.com/>; rel="hub"'
+          in: header
+        -
+          name: 'extend[]'
+          required: false
+          description: 'An array of nested objects to include in the return object'
+          in: query
+          schema:
+            type: array
+        -
+          name: 'fields[]'
+          required: false
+          description: 'An array of fields to return in output, wil return all fields is not supplied'
+          in: query
+          schema:
+            type: array
+        -
+          name: validOn
+          required: false
+          description: 'Returns object as valid on a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validFrom
+          required: false
+          description: 'Returns objects valid from a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+        -
+          name: validUntil
+          required: false
+          description: 'Returns objects valid until a given date time'
+          schema:
+            type: string
+            format: date-time
+          in: query
+      responses:
+        200:
+          description: 'Rule resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/json+ld:
+              schema:
+                $ref: '#/components/schemas/Rule:jsonld-read'
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+hal:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+vnd.api:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/health+json:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/json+health:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            application/x-yaml:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Rule-read'
+        404:
+          description: 'Resource not found'
+      produces:
+        - application/health+json
 components:
   schemas:
     AuditTrail-read:
@@ -2322,7 +4527,495 @@ components:
         '@type':
           readOnly: true
           type: string
+    Result-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rule-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - qc
+        - uri
+    Result-write:
+      type: object
+      description: ''
+      properties:
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rule-write'
+      required:
+        - qc
+        - uri
+    'Result:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rule:jsonld-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - qc
+        - uri
+    'Result:jsonld-write':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rule:jsonld-write'
+      required:
+        - qc
+        - uri
+    Rule-read:
+      type: object
+      description: ''
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        code:
+          description: 'Code of this rule'
+          type: string
+        object:
+          description: 'Url of this rule applies to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        property:
+          description: 'Property name'
+          type: string
+        value:
+          description: 'Value name'
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result-read'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - code
+        - object
+        - property
+        - value
+        - operation
+        - serviceEndpoint
+    Rule-write:
+      type: object
+      description: ''
+      required:
+        - code
+        - object
+        - property
+        - value
+        - operation
+        - serviceEndpoint
+      properties:
+        code:
+          description: 'Code of this rule'
+          type: string
+        object:
+          description: 'Url of this rule applies to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        property:
+          description: 'Property name'
+          type: string
+        value:
+          description: 'Value name'
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result-write'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+    'Rule:jsonld-read':
+      type: object
+      description: ''
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        code:
+          description: 'Code of this rule'
+          type: string
+        object:
+          description: 'Url of this rule applies to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        property:
+          description: 'Property name'
+          type: string
+        value:
+          description: 'Value name'
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result:jsonld-read'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
+      required:
+        - code
+        - object
+        - property
+        - value
+        - operation
+        - serviceEndpoint
+    'Rule:jsonld-write':
+      type: object
+      description: ''
+      required:
+        - code
+        - object
+        - property
+        - value
+        - operation
+        - serviceEndpoint
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        code:
+          description: 'Code of this rule'
+          type: string
+        object:
+          description: 'Url of this rule applies to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        property:
+          description: 'Property name'
+          type: string
+        value:
+          description: 'Value name'
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result:jsonld-write'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
 definitions:
+  Result-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      object: []
+      qc:
+        description: 'Qc url this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
+      uri:
+        description: 'Uri this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
+      rules: []
+    required:
+      - qc
+      - uri
+  Result-write:
+    properties:
+      object: []
+      qc:
+        description: 'Qc url this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
+      uri:
+        description: 'Uri this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
+      rules: []
+    required:
+      - qc
+      - uri
+  Rule-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this resource'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      code:
+        description: 'Code of this rule'
+        type: string
+        example: code
+        maxLength: 255
+      object:
+        description: 'Url of this rule applies to.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
+      property:
+        description: 'Property name'
+        type: string
+        example: property
+        maxLength: 255
+      value:
+        description: 'Value name'
+        type: string
+        example: value
+        maxLength: 255
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
+      results: []
+    required:
+      - code
+      - object
+      - property
+      - value
+      - operation
+      - serviceEndpoint
+  Rule-write:
+    properties:
+      code:
+        description: 'Code of this rule'
+        type: string
+        example: code
+        maxLength: 255
+      object:
+        description: 'Url of this rule applies to.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
+      property:
+        description: 'Property name'
+        type: string
+        example: property
+        maxLength: 255
+      value:
+        description: 'Value name'
+        type: string
+        example: value
+        maxLength: 255
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
+      results: []
+    required:
+      - code
+      - object
+      - property
+      - value
+      - operation
+      - serviceEndpoint
   AuditTrail-read:
     properties:
       id:
@@ -2427,12 +5120,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-08 14:50:39'
+        example: '2020-08-04 11:31:20'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-08 14:50:39'
+        example: '2020-08-04 11:31:20'
     required: []
   AuditTrail-write:
     properties:
@@ -2480,12 +5173,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-07-08 14:50:39'
+        example: '2020-08-04 11:31:20'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-07-08 14:50:39'
+        example: '2020-08-04 11:31:20'
     required: []
   ChangeLog-write:
     properties:
@@ -2496,6 +5189,18 @@ definitions:
         maxLength: 2555
     required: []
 tags:
+  -
+    name: Result
+    description: |
+      
+      
+      
+  -
+    name: Rule
+    description: |
+      
+      
+      
   -
     name: AuditTrail
     description: |
@@ -2527,7 +5232,7 @@ host: irc.zaakonline.nl
 servers:
   -
     name: conduction.nl
-    url: pc.dev.conduction.nl
+    url: vsbe.dev.conduction.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
