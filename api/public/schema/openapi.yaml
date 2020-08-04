@@ -3013,7 +3013,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[name]'
+          name: 'order[code]'
           in: query
           required: false
           schema:
@@ -3022,7 +3022,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[vtc]'
+          name: 'order[object]'
           in: query
           required: false
           schema:
@@ -3049,6 +3049,24 @@ paths:
               - asc
               - desc
         -
+          name: 'order[operation]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[serviceEndpoint]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: id
           in: query
           required: false
@@ -3065,13 +3083,13 @@ paths:
           style: form
           explode: true
         -
-          name: name
+          name: code
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'name[]'
+          name: 'code[]'
           in: query
           required: false
           schema:
@@ -3081,13 +3099,13 @@ paths:
           style: form
           explode: true
         -
-          name: vtc
+          name: object
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'vtc[]'
+          name: 'object[]'
           in: query
           required: false
           schema:
@@ -3120,6 +3138,38 @@ paths:
             type: string
         -
           name: 'value[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: operation
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'operation[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: serviceEndpoint
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'serviceEndpoint[]'
           in: query
           required: false
           schema:
@@ -4440,11 +4490,11 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4458,25 +4508,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Result-read'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
     Rule-write:
       type: object
       description: ''
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
       properties:
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4490,6 +4552,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Result-write'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
     'Rule:jsonld-read':
       type: object
       description: ''
@@ -4510,11 +4580,11 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4528,19 +4598,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-read'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
     'Rule:jsonld-write':
       type: object
       description: ''
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
       properties:
         '@context':
           readOnly: true
@@ -4551,11 +4633,11 @@ components:
         '@type':
           readOnly: true
           type: string
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4569,6 +4651,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-write'
+        operation:
+          description: Operation
+          type: string
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
 definitions:
   Result-read:
     properties:
@@ -4620,13 +4710,13 @@ definitions:
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      name:
-        description: 'Name of this rule'
+      code:
+        description: 'Code of this rule'
         type: string
-        example: Rule
+        example: code
         maxLength: 255
-      vtc:
-        description: 'Url of request type this rule applies to.'
+      object:
+        description: 'Url of this rule applies to.'
         type: string
         example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
         maxLength: 255
@@ -4641,21 +4731,34 @@ definitions:
         type: string
         example: value
         maxLength: 255
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
       results: []
     required:
-      - name
-      - vtc
+      - code
+      - object
       - property
       - value
+      - operation
+      - serviceEndpoint
   Rule-write:
     properties:
-      name:
-        description: 'Name of this rule'
+      code:
+        description: 'Code of this rule'
         type: string
-        example: Rule
+        example: code
         maxLength: 255
-      vtc:
-        description: 'Url of request type this rule applies to.'
+      object:
+        description: 'Url of this rule applies to.'
         type: string
         example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
         maxLength: 255
@@ -4670,12 +4773,25 @@ definitions:
         type: string
         example: value
         maxLength: 255
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        maxLength: 255
+        format: url
       results: []
     required:
-      - name
-      - vtc
+      - code
+      - object
       - property
       - value
+      - operation
+      - serviceEndpoint
   AuditTrail-read:
     properties:
       id:
@@ -4780,12 +4896,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 09:09:26'
+        example: '2020-08-04 09:23:38'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 09:09:26'
+        example: '2020-08-04 09:23:38'
     required: []
   AuditTrail-write:
     properties:
@@ -4833,12 +4949,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 09:09:26'
+        example: '2020-08-04 09:23:38'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 09:09:26'
+        example: '2020-08-04 09:23:38'
     required: []
   ChangeLog-write:
     properties:

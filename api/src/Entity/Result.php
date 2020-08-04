@@ -71,42 +71,42 @@ class Result
     private $id;
 
     /**
-     * @var string Url of request this check refers to.
-     *
-     * @example https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
-     *
-     * @Gedmo\Versioned
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Assert\NotNull
-     * @Assert\Url
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $vrc;
-
-    /**
-     * @var string Url of BRP this check refers to.
-     *
-     * @example https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9
-     *
-     * @Gedmo\Versioned
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Assert\NotNull
-     * @Assert\Url
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $brp;
-
-    /**
      * @Groups({"read","write"})
      * @ORM\Column(type="json")
      */
-    private $checks = [];
+    private $object;
+
+    /**
+     * @var string Qc url this result refers to.
+     *
+     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $qc;
+
+    /**
+     * @var string Uri this result refers to.
+     *
+     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uri;
 
     /**
      * @Groups({"read","write"})
@@ -126,43 +126,43 @@ class Result
         return $this->id;
     }
 
-    public function getVrc(): ?string
+    public function getObject(): ?string
     {
-        return $this->vrc;
+        return $this->object;
     }
 
-    public function setVrc(string $vrc): self
+    public function setObject(string $object): self
     {
-        $this->vrc = $vrc;
+        $this->object = $object;
 
         return $this;
     }
 
-    public function getBrp(): ?string
+    public function getQc(): ?string
     {
-        return $this->brp;
+        return $this->qc;
     }
 
-    public function setBrp(string $brp): self
+    public function setQc(string $qc): self
     {
-        $this->brp = $brp;
+        $this->qc = $qc;
 
         return $this;
     }
 
-    public function getChecks(): ?array
+    public function getUri(): ?string
     {
-        return $this->checks;
+        return $this->uri;
     }
 
-    public function setChecks(array $checks): self
+    public function setUri(string $uri): self
     {
-        $this->checks = $checks;
+        $this->uri = $uri;
 
         return $this;
     }
 
-    /**
+     /**
      * @return Collection|Rule[]
      */
     public function getRules(): Collection
