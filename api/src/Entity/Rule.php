@@ -134,7 +134,7 @@ class Rule
     /**
      * @Groups({"read","write"})
      * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Check", inversedBy="rules")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Check", mappedBy="rules")
      */
     private $checks;
 
