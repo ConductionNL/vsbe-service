@@ -2065,6 +2065,72 @@ paths:
               - asc
               - desc
         -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
           name: id
           in: query
           required: false
@@ -2128,6 +2194,30 @@ paths:
               type: string
           style: form
           explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: page
           in: query
@@ -3067,6 +3157,72 @@ paths:
               - asc
               - desc
         -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
           name: id
           in: query
           required: false
@@ -3178,6 +3334,30 @@ paths:
               type: string
           style: form
           explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: page
           in: query
@@ -4374,6 +4554,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rule-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
         - qc
         - uri
@@ -4436,6 +4626,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rule:jsonld-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
         - qc
         - uri
@@ -4508,6 +4708,16 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
         - code
         - object
@@ -4598,6 +4808,16 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
         - code
         - object
@@ -4672,6 +4892,12 @@ definitions:
         example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
       rules: []
     required:
       - qc
@@ -4734,6 +4960,12 @@ definitions:
         example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
         maxLength: 255
         format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
       results: []
     required:
       - code
@@ -4784,59 +5016,6 @@ definitions:
       - value
       - operation
       - serviceEndpoint
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-08-04 10:02:20'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-08-04 10:02:20'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -4941,12 +5120,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 10:02:20'
+        example: '2020-08-04 11:31:20'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 10:02:20'
+        example: '2020-08-04 11:31:20'
     required: []
   AuditTrail-write:
     properties:
@@ -4954,6 +5133,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-08-04 11:31:20'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-08-04 11:31:20'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -4970,13 +5202,13 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -4987,15 +5219,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -
