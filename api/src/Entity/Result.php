@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\CheckRepository;
+use App\Repository\ResultRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;

@@ -2038,7 +2038,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[vrc]'
+          name: 'order[object]'
           in: query
           required: false
           schema:
@@ -2047,7 +2047,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[brp]'
+          name: 'order[qc]'
           in: query
           required: false
           schema:
@@ -2056,7 +2056,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[checks]'
+          name: 'order[uri]'
           in: query
           required: false
           schema:
@@ -2081,13 +2081,13 @@ paths:
           style: form
           explode: true
         -
-          name: vrc
+          name: object
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'vrc[]'
+          name: 'object[]'
           in: query
           required: false
           schema:
@@ -2097,13 +2097,13 @@ paths:
           style: form
           explode: true
         -
-          name: brp
+          name: qc
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'brp[]'
+          name: 'qc[]'
           in: query
           required: false
           schema:
@@ -2113,13 +2113,13 @@ paths:
           style: form
           explode: true
         -
-          name: checks
+          name: uri
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'checks[]'
+          name: 'uri[]'
           in: query
           required: false
           schema:
@@ -4358,52 +4358,48 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+        uri:
+          description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule-read'
       required:
-        - vrc
-        - brp
+        - qc
+        - uri
     Result-write:
       type: object
       description: ''
-      required:
-        - vrc
-        - brp
       properties:
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+        uri:
+          description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule-write'
+      required:
+        - qc
+        - uri
     'Result:jsonld-read':
       type: object
       description: ''
@@ -4424,33 +4420,28 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+        uri:
+          description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule:jsonld-read'
       required:
-        - vrc
-        - brp
+        - qc
+        - uri
     'Result:jsonld-write':
       type: object
       description: ''
-      required:
-        - vrc
-        - brp
       properties:
         '@context':
           readOnly: true
@@ -4461,24 +4452,25 @@ components:
         '@type':
           readOnly: true
           type: string
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          type: string
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+        uri:
+          description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule:jsonld-write'
+      required:
+        - qc
+        - uri
     Rule-read:
       type: object
       description: ''
@@ -4667,42 +4659,42 @@ definitions:
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      vrc:
-        description: 'Url of request this check refers to.'
+      object: []
+      qc:
+        description: 'Qc url this result refers to.'
         type: string
-        example: 'https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      brp:
-        description: 'Url of BRP this check refers to.'
+      uri:
+        description: 'Uri this result refers to.'
         type: string
-        example: 'https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      checks: []
       rules: []
     required:
-      - vrc
-      - brp
+      - qc
+      - uri
   Result-write:
     properties:
-      vrc:
-        description: 'Url of request this check refers to.'
+      object: []
+      qc:
+        description: 'Qc url this result refers to.'
         type: string
-        example: 'https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      brp:
-        description: 'Url of BRP this check refers to.'
+      uri:
+        description: 'Uri this result refers to.'
         type: string
-        example: 'https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      checks: []
       rules: []
     required:
-      - vrc
-      - brp
+      - qc
+      - uri
   Rule-read:
     properties:
       id:
@@ -4896,12 +4888,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 09:23:38'
+        example: '2020-08-04 09:39:56'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 09:23:38'
+        example: '2020-08-04 09:39:56'
     required: []
   AuditTrail-write:
     properties:
@@ -4949,12 +4941,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 09:23:38'
+        example: '2020-08-04 09:39:56'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 09:23:38'
+        example: '2020-08-04 09:39:56'
     required: []
   ChangeLog-write:
     properties:
