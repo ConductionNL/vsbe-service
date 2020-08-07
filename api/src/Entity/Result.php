@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ResultRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\ResultRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -136,7 +136,6 @@ class Result
     public function __construct()
     {
         $this->rules = new ArrayCollection();
-
     }
 
     public function getId(): Uuid
@@ -204,7 +203,7 @@ class Result
         return $this;
     }
 
-     /**
+    /**
      * @return Collection|Rule[]
      */
     public function getRules(): Collection
