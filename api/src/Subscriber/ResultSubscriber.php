@@ -2,15 +2,14 @@
 
 namespace App\Subscriber;
 
-use App\Service\ResultService;
 use ApiPlatform\Core\EventListener\EventPriorities;
+use App\Service\ResultService;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Symfony\Component\Serializer\SerializerInterface;
-
 
 class ResultSubscriber implements EventSubscriberInterface
 {
@@ -37,6 +36,5 @@ class ResultSubscriber implements EventSubscriberInterface
     public function Check(ViewEvent $event)
     {
         $result = $event->getControllerResult();
-
     }
 }
