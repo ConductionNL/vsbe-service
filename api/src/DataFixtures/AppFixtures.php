@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Rule;
+use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -11,19 +13,37 @@ class AppFixtures extends Fixture
 {
     private $params;
     private $encoder;
+    private $commonGroundService;
 
-    public function __construct(ParameterBagInterface $params, UserPasswordEncoderInterface $encoder)
+    public function __construct(ParameterBagInterface $params, UserPasswordEncoderInterface $encoder, CommonGroundService $commonGroundService)
     {
         $this->params = $params;
         $this->encoder = $encoder;
+        $this->commonGroundService = $commonGroundService;
     }
 
     public function load(ObjectManager $manager)
     {
         // Lets make sure we only run these fixtures on larping enviroment
-        if (strpos($this->params->get('app_domain'), 'conduction.nl') == false) {
+        if (
+            strpos($this->params->get('app_domain'), 'zuid-drecht.nl') == false &&
+            $this->params->get('app_domain') != 'zuid-drecht.nl'&&
+            strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') == false &&
+            $this->params->get('app_domain') != 'westfriesland.commonground.nu'
+        ) {
             return false;
         }
+        var_Dump("No issues");
+
+        $rule = new Rule();
+        $rule->setCode('vcs');
+        $rule->setObject('VRC/request');
+        $rule->setProperty('@type');
+        $rule->setValue('Request');
+        $rule->setOperation('==');
+        $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs','type'=>'request_conversions']));
+
+        $manager->persist($rule);
 
         $manager->flush();
     }
