@@ -72,7 +72,7 @@ class ResultService
         $res = $this->commonGroundService->createResource($resource, $rule->getServiceEndpoint());
 
         $uris = $result->getUris();
-        $uris[] = $res['@id'];
+        $uris[] = $res['result'];
 
         $result->setUris($uris);
         $result->addRule($rule);
