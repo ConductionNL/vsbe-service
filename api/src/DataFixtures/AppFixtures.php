@@ -27,13 +27,13 @@ class AppFixtures extends Fixture
         // Lets make sure we only run these fixtures on larping enviroment
         if (
             strpos($this->params->get('app_domain'), 'zuid-drecht.nl') == false &&
-            $this->params->get('app_domain') != 'zuid-drecht.nl'&&
+            $this->params->get('app_domain') != 'zuid-drecht.nl' &&
             strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') == false &&
             $this->params->get('app_domain') != 'westfriesland.commonground.nu'
         ) {
             return false;
         }
-        var_Dump("No issues");
+        var_dump('No issues');
 
         $rule = new Rule();
         $rule->setCode('vcs');
@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
         $rule->setProperty('@type');
         $rule->setValue('Request');
         $rule->setOperation('==');
-        $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs','type'=>'request_conversions']));
+        $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs', 'type'=>'request_conversions']));
 
         $manager->persist($rule);
 
