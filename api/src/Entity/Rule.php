@@ -88,7 +88,7 @@ class Rule
     /**
      * @var string Url of this rule applies to.
      *
-     * @example https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
+     * @example https://vtc.dev.zuid-drecht.nl/request_types
      *
      * @Gedmo\Versioned
      * @Assert\Length(
@@ -132,6 +132,7 @@ class Rule
     private $value;
 
     /**
+     * @var ArrayCollection|Result[] The results of this rule
      * @Groups({"read","write"})
      * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Result", mappedBy="rules")
@@ -149,14 +150,14 @@ class Rule
      *     max = 255
      * )
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $operation;
 
     /**
      * @var string Url of endpoint.
      *
-     * @example https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
+     * @example https://vcs.dev.zuid-drecht.nl/requests
      *
      * @Gedmo\Versioned
      * @Assert\Length(

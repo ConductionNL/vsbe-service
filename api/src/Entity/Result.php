@@ -71,8 +71,18 @@ class Result
     private $id;
 
     /**
+     * @var string The object to be checked
+     *
+     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $object;
 
@@ -85,28 +95,22 @@ class Result
      * @Assert\Length(
      *     max = 255
      * )
-     * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $qc;
 
     /**
      * @var string Uri this result refers to.
      *
-     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     * @example https://trc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
      *
      * @Gedmo\Versioned
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Assert\NotNull
-     * @Assert\Url
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @Groups({"read"})
+     * @ORM\Column(type="array", nullable=true)
      */
-    private $uri;
+    private $uris = [];
 
     /**
      * @Groups({"read","write"})
@@ -225,6 +229,18 @@ class Result
         if ($this->rules->contains($rule)) {
             $this->rules->removeElement($rule);
         }
+
+        return $this;
+    }
+
+    public function getUris(): ?array
+    {
+        return $this->uris;
+    }
+
+    public function setUris(?array $uris): self
+    {
+        $this->uris = $uris;
 
         return $this;
     }

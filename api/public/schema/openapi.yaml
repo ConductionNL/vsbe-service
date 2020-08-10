@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsbe-php) 
     - Datamodel: [postman](/schema/vsbe.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -4539,17 +4539,23 @@ components:
           type: string
           format: uuid
         object:
+          description: 'The object to be checked'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         uri:
           description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         rules:
           type: array
           items:
@@ -4565,31 +4571,35 @@ components:
           format: date-time
           nullable: true
       required:
-        - qc
-        - uri
+        - object
     Result-write:
       type: object
       description: ''
+      required:
+        - object
       properties:
         object:
+          description: 'The object to be checked'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         uri:
           description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule-write'
-      required:
-        - qc
-        - uri
     'Result:jsonld-read':
       type: object
       description: ''
@@ -4611,17 +4621,23 @@ components:
           type: string
           format: uuid
         object:
+          description: 'The object to be checked'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         uri:
           description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         rules:
           type: array
           items:
@@ -4637,11 +4653,12 @@ components:
           format: date-time
           nullable: true
       required:
-        - qc
-        - uri
+        - object
     'Result:jsonld-write':
       type: object
       description: ''
+      required:
+        - object
       properties:
         '@context':
           readOnly: true
@@ -4653,24 +4670,27 @@ components:
           readOnly: true
           type: string
         object:
+          description: 'The object to be checked'
+          externalDocs:
+            url: 'http://schema.org/url'
           type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         uri:
           description: 'Uri this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+          nullable: true
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule:jsonld-write'
-      required:
-        - qc
-        - uri
     Rule-read:
       type: object
       description: ''
@@ -4697,12 +4717,14 @@ components:
           description: 'Value name'
           type: string
         results:
+          description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result-read'
         operation:
           description: Operation
           type: string
+          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4751,12 +4773,14 @@ components:
           description: 'Value name'
           type: string
         results:
+          description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result-write'
         operation:
           description: Operation
           type: string
+          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4797,12 +4821,14 @@ components:
           description: 'Value name'
           type: string
         results:
+          description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-read'
         operation:
           description: Operation
           type: string
+          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4860,12 +4886,14 @@ components:
           description: 'Value name'
           type: string
         results:
+          description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-write'
         operation:
           description: Operation
           type: string
+          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4879,7 +4907,12 @@ definitions:
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      object: []
+      object:
+        description: 'The object to be checked'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
       qc:
         description: 'Qc url this result refers to.'
         type: string
@@ -4900,11 +4933,15 @@ definitions:
         type: \DateTime
       rules: []
     required:
-      - qc
-      - uri
+      - object
   Result-write:
     properties:
-      object: []
+      object:
+        description: 'The object to be checked'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
       qc:
         description: 'Qc url this result refers to.'
         type: string
@@ -4919,8 +4956,7 @@ definitions:
         format: url
       rules: []
     required:
-      - qc
-      - uri
+      - object
   Rule-read:
     properties:
       id:
@@ -4936,7 +4972,7 @@ definitions:
       object:
         description: 'Url of this rule applies to.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
       property:
@@ -4957,7 +4993,7 @@ definitions:
       serviceEndpoint:
         description: 'Url of endpoint.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vcs.dev.zuid-drecht.nl/requests'
         maxLength: 255
         format: url
       dateCreated:
@@ -4966,7 +5002,9 @@ definitions:
       dateModified:
         description: 'The moment this request last Modified'
         type: \DateTime
-      results: []
+      results:
+        description: 'The results of this rule'
+        type: '\ArrayCollection|\Result[]'
     required:
       - code
       - object
@@ -4984,7 +5022,7 @@ definitions:
       object:
         description: 'Url of this rule applies to.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
       property:
@@ -5005,10 +5043,12 @@ definitions:
       serviceEndpoint:
         description: 'Url of endpoint.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vcs.dev.zuid-drecht.nl/requests'
         maxLength: 255
         format: url
-      results: []
+      results:
+        description: 'The results of this rule'
+        type: '\ArrayCollection|\Result[]'
     required:
       - code
       - object
@@ -5016,6 +5056,59 @@ definitions:
       - value
       - operation
       - serviceEndpoint
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-08-10 11:35:09'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-08-10 11:35:09'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -5120,12 +5213,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-04 11:31:20'
+        example: '2020-08-10 11:35:09'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-04 11:31:20'
+        example: '2020-08-10 11:35:09'
     required: []
   AuditTrail-write:
     properties:
@@ -5133,59 +5226,6 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-08-04 11:31:20'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-08-04 11:31:20'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -5202,13 +5242,13 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -5219,20 +5259,20 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: vsbe.dev.conduction.nl
+    name: westfriesland.commonground.nu
+    url: vsbe.dev.westfriesland.commonground.nu
 externalDocs:
   -
     description: 'OAS Documentatie'
