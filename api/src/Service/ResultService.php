@@ -18,10 +18,11 @@ class ResultService
         $this->commonGroundService = $commonGroundService;
     }
 
-    public function performChecks(Result $result){
+    public function performChecks(Result $result)
+    {
         $rules = $this->em->getRepository('App:Rule')->findAll();
-        foreach($rules as $rule){
-            if($rule instanceof Rule) {
+        foreach ($rules as $rule) {
+            if ($rule instanceof Rule) {
                 $object = $this->commonGroundService->getResource($result->getObject());
                 $resource[strtolower($object['@type'])] = $result->getObject();
 
@@ -47,7 +48,7 @@ class ResultService
                         }
                         break;
                     case '<>':
-                        if ($object[$rule->getProperty()] <> $rule->getValue()) {
+                        if ($object[$rule->getProperty()] != $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
@@ -65,9 +66,11 @@ class ResultService
                 }
             }
         }
+
         return $result;
     }
-    public function runServices(Rule $rule, Result $result, $resource) :Result
+
+    public function runServices(Rule $rule, Result $result, $resource): Result
     {
         $res = $this->commonGroundService->createResource($resource, $rule->getServiceEndpoint());
 
@@ -76,6 +79,7 @@ class ResultService
 
         $result->setUris($uris);
         $result->addRule($rule);
+
         return $result;
     }
 }

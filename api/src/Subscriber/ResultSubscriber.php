@@ -43,9 +43,7 @@ class ResultSubscriber implements EventSubscriberInterface
         $result = $event->getControllerResult();
         $request = $event->getRequest();
 
-
-        if($request->getMethod() == Request::METHOD_POST && $result instanceof Result){
-
+        if ($request->getMethod() == Request::METHOD_POST && $result instanceof Result) {
             $result = $this->resultService->performChecks($result);
             $this->em->persist($result);
             $this->em->flush();
