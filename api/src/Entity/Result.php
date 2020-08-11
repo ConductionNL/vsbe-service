@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CheckRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\ResultRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=CheckRepository::class)
+ * @ORM\Entity(repositoryClass=ResultRepository::class)
  * @ApiResource(
  *     attributes={"pagination_items_per_page"=30},
  *     normalizationContext={"groups"={"read"}, "enable_max_depth"=true},
@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "put",
  *          "delete",
  *          "get_change_logs"={
- *              "path"="/checks/{id}/change_log",
+ *              "path"="/results/{id}/change_log",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Changelogs",
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              }
  *          },
  *          "get_audit_trail"={
- *              "path"="/checks/{id}/audit_trail",
+ *              "path"="/results/{id}/audit_trail",
  *              "method"="get",
  *              "swagger_context" = {
  *                  "summary"="Audittrail",
@@ -54,7 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(DateFilter::class, strategy=DateFilter::EXCLUDE_NULL)
  * @ApiFilter(SearchFilter::class)
  */
-class Check
+class Result
 {
     /**
      * @var UuidInterface The UUID identifier of this resource
@@ -71,25 +71,9 @@ class Check
     private $id;
 
     /**
-     * @var string Url of request this check refers to.
+     * @var string The object to be checked
      *
-     * @example https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
-     *
-     * @Gedmo\Versioned
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Assert\NotNull
-     * @Assert\Url
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $vrc;
-
-    /**
-     * @var string Url of BRP this check refers to.
-     *
-     * @example https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9
+     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
      *
      * @Gedmo\Versioned
      * @Assert\Length(
@@ -98,27 +82,64 @@ class Check
      * @Assert\NotNull
      * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $brp;
+    private $object;
 
     /**
+     * @var string Qc url this result refers to.
+     *
+     * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\Url
      * @Groups({"read","write"})
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $checks = [];
+    private $qc;
+
+    /**
+     * @var string Uri this result refers to.
+     *
+     * @example https://trc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
+     *
+     * @Gedmo\Versioned
+     * @Groups({"read"})
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $uris = [];
 
     /**
      * @Groups({"read","write"})
      * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Rule", inversedBy="checks")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Rule", inversedBy="results")
      */
     private $rules;
+
+    /**
+     * @var DateTime The moment this request was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var DateTime The moment this request last Modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModified;
 
     public function __construct()
     {
         $this->rules = new ArrayCollection();
-
     }
 
     public function getId(): Uuid
@@ -126,38 +147,62 @@ class Check
         return $this->id;
     }
 
-    public function getVrc(): ?string
+    public function getObject(): ?string
     {
-        return $this->vrc;
+        return $this->object;
     }
 
-    public function setVrc(string $vrc): self
+    public function setObject(string $object): self
     {
-        $this->vrc = $vrc;
+        $this->object = $object;
 
         return $this;
     }
 
-    public function getBrp(): ?string
+    public function getQc(): ?string
     {
-        return $this->brp;
+        return $this->qc;
     }
 
-    public function setBrp(string $brp): self
+    public function setQc(string $qc): self
     {
-        $this->brp = $brp;
+        $this->qc = $qc;
 
         return $this;
     }
 
-    public function getChecks(): ?array
+    public function getUri(): ?string
     {
-        return $this->checks;
+        return $this->uri;
     }
 
-    public function setChecks(array $checks): self
+    public function setUri(string $uri): self
     {
-        $this->checks = $checks;
+        $this->uri = $uri;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
 
         return $this;
     }
@@ -184,6 +229,18 @@ class Check
         if ($this->rules->contains($rule)) {
             $this->rules->removeElement($rule);
         }
+
+        return $this;
+    }
+
+    public function getUris(): ?array
+    {
+        return $this->uris;
+    }
+
+    public function setUris(?array $uris): self
+    {
+        $this->uris = $uris;
 
         return $this;
     }

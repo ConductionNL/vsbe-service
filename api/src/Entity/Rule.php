@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\RuleRepository;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Repository\RuleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,9 +71,9 @@ class Rule
     private $id;
 
     /**
-     * @var string Name of this rule
+     * @var string Code of this rule
      *
-     * @example Rule
+     * @example code
      *
      * @Gedmo\Versioned
      * @Assert\NotNull
@@ -83,12 +83,12 @@ class Rule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $code;
 
     /**
-     * @var string Url of request type this rule applies to.
+     * @var string Url of this rule applies to.
      *
-     * @example https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c
+     * @example https://vtc.dev.zuid-drecht.nl/request_types
      *
      * @Gedmo\Versioned
      * @Assert\Length(
@@ -99,7 +99,7 @@ class Rule
      * @Groups({"read","write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $vtc;
+    private $object;
 
     /**
      * @var string Property name
@@ -132,16 +132,65 @@ class Rule
     private $value;
 
     /**
+     * @var ArrayCollection|Result[] The results of this rule
      * @Groups({"read","write"})
      * @MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="App\Entity\Check", inversedBy="rules")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Result", mappedBy="rules")
      */
-    private $checks;
+    private $results;
+
+    /**
+     * @var string Operation
+     *
+     * @example operation
+     *
+     * @Gedmo\Versioned
+     * @Assert\NotNull
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $operation;
+
+    /**
+     * @var string Url of endpoint.
+     *
+     * @example https://vcs.dev.zuid-drecht.nl/requests
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Url
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $serviceEndpoint;
+
+    /**
+     * @var DateTime The moment this request was created
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var DateTime The moment this request last Modified
+     *
+     * @Groups({"read"})
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateModified;
 
     public function __construct()
     {
-        $this->checks = new ArrayCollection();
-
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -149,26 +198,26 @@ class Rule
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCode(): ?string
     {
-        return $this->name;
+        return $this->code;
     }
 
-    public function setName(string $name): self
+    public function setCode(string $code): self
     {
-        $this->name = $name;
+        $this->code = $code;
 
         return $this;
     }
 
-    public function getVtc(): ?string
+    public function getObject(): ?string
     {
-        return $this->vtc;
+        return $this->object;
     }
 
-    public function setVtc(string $vtc): self
+    public function setObject(string $object): self
     {
-        $this->vtc = $vtc;
+        $this->object = $object;
 
         return $this;
     }
@@ -197,27 +246,75 @@ class Rule
         return $this;
     }
 
-    /**
-     * @return Collection|Check[]
-     */
-    public function getChecks(): Collection
+    public function getOperation(): ?string
     {
-        return $this->checks;
+        return $this->operation;
     }
 
-    public function addCheck(Check $check): self
+    public function setOperation(string $operation): self
     {
-        if (!$this->checks->contains($check)) {
-            $this->checks[] = $check;
+        $this->operation = $operation;
+
+        return $this;
+    }
+
+    public function getServiceEndpoint(): ?string
+    {
+        return $this->serviceEndpoint;
+    }
+
+    public function setServiceEndpoint(string $serviceEndpoint): self
+    {
+        $this->serviceEndpoint = $serviceEndpoint;
+
+        return $this;
+    }
+
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getDateModified(): ?\DateTimeInterface
+    {
+        return $this->dateModified;
+    }
+
+    public function setDateModified(\DateTimeInterface $dateModified): self
+    {
+        $this->dateModified = $dateModified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Result[]
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): self
+    {
+        if (!$this->results->contains($result)) {
+            $this->results[] = $result;
         }
 
         return $this;
     }
 
-    public function removeCheck(Check $check): self
+    public function removeResult(Result $result): self
     {
-        if ($this->checks->contains($check)) {
-            $this->checks->removeElement($check);
+        if ($this->results->contains($result)) {
+            $this->results->removeElement($result);
         }
 
         return $this;

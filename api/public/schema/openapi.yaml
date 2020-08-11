@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsbe-php) 
     - Datamodel: [postman](/schema/vsbe.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -1942,21 +1942,21 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangeLog-write'
         description: 'The updated ChangeLog resource'
-  /checks:
+  /results:
     get:
       tags:
-        - Check
-      operationId: getCheckCollection
-      summary: 'Retrieves the collection of Check resources.'
+        - Result
+      operationId: getResultCollection
+      summary: 'Retrieves the collection of Result resources.'
       responses:
         200:
-          description: 'Check collection response'
+          description: 'Result collection response'
           content:
             application/ld+json:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Check:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -1966,7 +1966,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Check:jsonld-read' } }
+                  'hydra:member': { type: array, items: { $ref: '#/components/schemas/Result:jsonld-read' } }
                   'hydra:totalItems': { type: integer, minimum: 0 }
                   'hydra:view': { type: object, properties: { '@id': { type: string, format: iri-reference }, '@type': { type: string }, 'hydra:first': { type: string, format: iri-reference }, 'hydra:last': { type: string, format: iri-reference }, 'hydra:next': { type: string, format: iri-reference } } }
                   'hydra:search': { type: object, properties: { '@type': { type: string }, 'hydra:template': { type: string }, 'hydra:variableRepresentation': { type: string }, 'hydra:mapping': { type: array, items: { type: object, properties: { '@type': { type: string }, variable: { type: string }, property: { type: string }, required: { type: boolean } } } } } }
@@ -1976,57 +1976,57 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Check-read'
+                  $ref: '#/components/schemas/Result-read'
       parameters:
         -
           name: 'order[id]'
@@ -2038,7 +2038,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[vrc]'
+          name: 'order[object]'
           in: query
           required: false
           schema:
@@ -2047,7 +2047,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[brp]'
+          name: 'order[qc]'
           in: query
           required: false
           schema:
@@ -2056,7 +2056,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[checks]'
+          name: 'order[uri]'
           in: query
           required: false
           schema:
@@ -2064,6 +2064,72 @@ paths:
             enum:
               - asc
               - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: id
           in: query
@@ -2081,13 +2147,13 @@ paths:
           style: form
           explode: true
         -
-          name: vrc
+          name: object
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'vrc[]'
+          name: 'object[]'
           in: query
           required: false
           schema:
@@ -2097,13 +2163,13 @@ paths:
           style: form
           explode: true
         -
-          name: brp
+          name: qc
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'brp[]'
+          name: 'qc[]'
           in: query
           required: false
           schema:
@@ -2113,13 +2179,13 @@ paths:
           style: form
           explode: true
         -
-          name: checks
+          name: uri
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'checks[]'
+          name: 'uri[]'
           in: query
           required: false
           schema:
@@ -2128,6 +2194,30 @@ paths:
               type: string
           style: form
           explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: page
           in: query
@@ -2220,58 +2310,58 @@ paths:
         - application/health+json
     post:
       tags:
-        - Check
-      operationId: postCheckCollection
-      summary: 'Creates a Check resource.'
+        - Result
+      operationId: postResultCollection
+      summary: 'Creates a Result resource.'
       responses:
         201:
-          description: 'Check resource created'
+          description: 'Result resource created'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
           links:
-            GetCheckItem:
+            GetResultItem:
               parameters:
                 id: '$response.body#/id'
-              operationId: getCheckItem
-              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /checks/{id}`.'
+              operationId: getResultItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /results/{id}`.'
         400:
           description: 'Invalid input'
         404:
@@ -2280,44 +2370,44 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Check-write'
-        description: 'The new Check resource'
+              $ref: '#/components/schemas/Result-write'
+        description: 'The new Result resource'
       parameters:
         -
           name: Authorization
@@ -2348,12 +2438,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/checks/{id}':
+  '/results/{id}':
     get:
       tags:
-        - Check
-      operationId: getCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: getResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2434,56 +2524,56 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
     put:
       tags:
-        - Check
-      operationId: putCheckItem
-      summary: 'Replaces the Check resource.'
+        - Result
+      operationId: putResultItem
+      summary: 'Replaces the Result resource.'
       parameters:
         -
           name: id
@@ -2522,47 +2612,47 @@ paths:
           in: header
       responses:
         200:
-          description: 'Check resource updated'
+          description: 'Result resource updated'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         400:
           description: 'Invalid input'
         404:
@@ -2571,52 +2661,52 @@ paths:
         content:
           application/ld+json:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/json+ld:
             schema:
-              $ref: '#/components/schemas/Check:jsonld-write'
+              $ref: '#/components/schemas/Result:jsonld-write'
           application/hal+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+hal:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/vnd.api+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+vnd.api:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/health+json:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/json+health:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           application/x-yaml:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/csv:
             schema:
-              $ref: '#/components/schemas/Check-write'
+              $ref: '#/components/schemas/Result-write'
           text/html:
             schema:
-              $ref: '#/components/schemas/Check-write'
-        description: 'The updated Check resource'
+              $ref: '#/components/schemas/Result-write'
+        description: 'The updated Result resource'
     delete:
       tags:
-        - Check
-      operationId: deleteCheckItem
-      summary: 'Removes the Check resource.'
+        - Result
+      operationId: deleteResultItem
+      summary: 'Removes the Result resource.'
       responses:
         204:
-          description: 'Check resource deleted'
+          description: 'Result resource deleted'
         404:
           description: 'Resource not found'
       parameters:
@@ -2655,12 +2745,12 @@ paths:
           name: X-NLX-Audit-Clarification
           description: 'A clarification as to why a request has been made  (doelbinding)'
           in: header
-  '/checks/{id}/audit_trail':
+  '/results/{id}/audit_trail':
     get:
       tags:
-        - Check
-      operationId: get_audit_trailCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: get_audit_trailResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2741,57 +2831,57 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
         - application/health+json
-  '/checks/{id}/change_log':
+  '/results/{id}/change_log':
     get:
       tags:
-        - Check
-      operationId: get_change_logsCheckItem
-      summary: 'Retrieves a Check resource.'
+        - Result
+      operationId: get_change_logsResultItem
+      summary: 'Retrieves a Result resource.'
       parameters:
         -
           name: id
@@ -2872,47 +2962,47 @@ paths:
           in: query
       responses:
         200:
-          description: 'Check resource response'
+          description: 'Result resource response'
           content:
             application/ld+json:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/json+ld:
               schema:
-                $ref: '#/components/schemas/Check:jsonld-read'
+                $ref: '#/components/schemas/Result:jsonld-read'
             application/hal+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+hal:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/vnd.api+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+vnd.api:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/health+json:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/json+health:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             application/x-yaml:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/csv:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
             text/html:
               schema:
-                $ref: '#/components/schemas/Check-read'
+                $ref: '#/components/schemas/Result-read'
         404:
           description: 'Resource not found'
       produces:
@@ -3013,7 +3103,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[name]'
+          name: 'order[code]'
           in: query
           required: false
           schema:
@@ -3022,7 +3112,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[vtc]'
+          name: 'order[object]'
           in: query
           required: false
           schema:
@@ -3049,6 +3139,90 @@ paths:
               - asc
               - desc
         -
+          name: 'order[operation]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[serviceEndpoint]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateCreated]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'order[dateModified]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
+          name: 'dateCreated[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_before]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[strictly_after]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
           name: id
           in: query
           required: false
@@ -3065,13 +3239,13 @@ paths:
           style: form
           explode: true
         -
-          name: name
+          name: code
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'name[]'
+          name: 'code[]'
           in: query
           required: false
           schema:
@@ -3081,13 +3255,13 @@ paths:
           style: form
           explode: true
         -
-          name: vtc
+          name: object
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'vtc[]'
+          name: 'object[]'
           in: query
           required: false
           schema:
@@ -3128,6 +3302,62 @@ paths:
               type: string
           style: form
           explode: true
+        -
+          name: operation
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'operation[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: serviceEndpoint
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'serviceEndpoint[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
+          name: dateCreated
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateCreated[]'
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: dateModified
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'dateModified[]'
+          in: query
+          required: false
+          schema:
+            type: string
         -
           name: page
           in: query
@@ -4297,7 +4527,7 @@ components:
         '@type':
           readOnly: true
           type: string
-    Check-read:
+    Result-read:
       type: object
       description: ''
       properties:
@@ -4308,53 +4538,69 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          description: 'The object to be checked'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+          nullable: true
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
+          nullable: true
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
-        - vrc
-        - brp
-    Check-write:
+        - object
+    Result-write:
       type: object
       description: ''
       required:
-        - vrc
-        - brp
+        - object
       properties:
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          description: 'The object to be checked'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+          nullable: true
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
+          nullable: true
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule-write'
-    'Check:jsonld-read':
+    'Result:jsonld-read':
       type: object
       description: ''
       properties:
@@ -4374,33 +4620,45 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          description: 'The object to be checked'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+          nullable: true
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
+          nullable: true
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         rules:
           type: array
           items:
             $ref: '#/components/schemas/Rule:jsonld-read'
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
-        - vrc
-        - brp
-    'Check:jsonld-write':
+        - object
+    'Result:jsonld-write':
       type: object
       description: ''
       required:
-        - vrc
-        - brp
+        - object
       properties:
         '@context':
           readOnly: true
@@ -4411,20 +4669,24 @@ components:
         '@type':
           readOnly: true
           type: string
-        vrc:
-          description: 'Url of request this check refers to.'
+        object:
+          description: 'The object to be checked'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        brp:
-          description: 'Url of BRP this check refers to.'
+          nullable: true
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        checks:
-          type: array
-          items:
-            type: string
+          nullable: true
+        uri:
+          description: 'Uri this result refers to.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+          nullable: true
         rules:
           type: array
           items:
@@ -4440,11 +4702,11 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4454,29 +4716,53 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
+          description: 'The results of this rule'
           type: array
           items:
-            $ref: '#/components/schemas/Check-read'
+            $ref: '#/components/schemas/Result-read'
+        operation:
+          description: Operation
+          type: string
+          nullable: true
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
     Rule-write:
       type: object
       description: ''
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
       properties:
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4486,10 +4772,20 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
+          description: 'The results of this rule'
           type: array
           items:
-            $ref: '#/components/schemas/Check-write'
+            $ref: '#/components/schemas/Result-write'
+        operation:
+          description: Operation
+          type: string
+          nullable: true
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
     'Rule:jsonld-read':
       type: object
       description: ''
@@ -4510,11 +4806,11 @@ components:
             url: 'http://schema.org/identifier'
           type: string
           format: uuid
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4524,23 +4820,47 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
+          description: 'The results of this rule'
           type: array
           items:
-            $ref: '#/components/schemas/Check:jsonld-read'
+            $ref: '#/components/schemas/Result:jsonld-read'
+        operation:
+          description: Operation
+          type: string
+          nullable: true
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
+        dateCreated:
+          description: 'The moment this request was created'
+          type: string
+          format: date-time
+          nullable: true
+        dateModified:
+          description: 'The moment this request last Modified'
+          type: string
+          format: date-time
+          nullable: true
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
     'Rule:jsonld-write':
       type: object
       description: ''
       required:
-        - name
-        - vtc
+        - code
+        - object
         - property
         - value
+        - operation
+        - serviceEndpoint
       properties:
         '@context':
           readOnly: true
@@ -4551,11 +4871,11 @@ components:
         '@type':
           readOnly: true
           type: string
-        name:
-          description: 'Name of this rule'
+        code:
+          description: 'Code of this rule'
           type: string
-        vtc:
-          description: 'Url of request type this rule applies to.'
+        object:
+          description: 'Url of this rule applies to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4565,54 +4885,78 @@ components:
         value:
           description: 'Value name'
           type: string
-        checks:
+        results:
+          description: 'The results of this rule'
           type: array
           items:
-            $ref: '#/components/schemas/Check:jsonld-write'
+            $ref: '#/components/schemas/Result:jsonld-write'
+        operation:
+          description: Operation
+          type: string
+          nullable: true
+        serviceEndpoint:
+          description: 'Url of endpoint.'
+          externalDocs:
+            url: 'http://schema.org/url'
+          type: string
 definitions:
-  Check-read:
+  Result-read:
     properties:
       id:
         description: 'The UUID identifier of this resource'
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      vrc:
-        description: 'Url of request this check refers to.'
+      object:
+        description: 'The object to be checked'
         type: string
-        example: 'https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      brp:
-        description: 'Url of BRP this check refers to.'
+      qc:
+        description: 'Qc url this result refers to.'
         type: string
-        example: 'https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      checks: []
+      uri:
+        description: 'Uri this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
       rules: []
     required:
-      - vrc
-      - brp
-  Check-write:
+      - object
+  Result-write:
     properties:
-      vrc:
-        description: 'Url of request this check refers to.'
+      object:
+        description: 'The object to be checked'
         type: string
-        example: 'https://vrc.dev.zuid-drecht.nl/requests/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      brp:
-        description: 'Url of BRP this check refers to.'
+      qc:
+        description: 'Qc url this result refers to.'
         type: string
-        example: 'https://brp.dev.zuid-drecht.nl/ingeschrevenpersonen/uuid/0947fd0c-12e2-425e-be53-b4eb42b6ddb9'
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      checks: []
+      uri:
+        description: 'Uri this result refers to.'
+        type: string
+        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
+        maxLength: 255
+        format: url
       rules: []
     required:
-      - vrc
-      - brp
+      - object
   Rule-read:
     properties:
       id:
@@ -4620,15 +4964,15 @@ definitions:
         type: string
         example: e2984465-190a-4562-829e-a8cca81aa35d
         format: uuid
-      name:
-        description: 'Name of this rule'
+      code:
+        description: 'Code of this rule'
         type: string
-        example: Rule
+        example: code
         maxLength: 255
-      vtc:
-        description: 'Url of request type this rule applies to.'
+      object:
+        description: 'Url of this rule applies to.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
       property:
@@ -4641,23 +4985,44 @@ definitions:
         type: string
         example: value
         maxLength: 255
-      checks: []
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vcs.dev.zuid-drecht.nl/requests'
+        maxLength: 255
+        format: url
+      dateCreated:
+        description: 'The moment this request was created'
+        type: \DateTime
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: \DateTime
+      results:
+        description: 'The results of this rule'
+        type: '\ArrayCollection|\Result[]'
     required:
-      - name
-      - vtc
+      - code
+      - object
       - property
       - value
+      - operation
+      - serviceEndpoint
   Rule-write:
     properties:
-      name:
-        description: 'Name of this rule'
+      code:
+        description: 'Code of this rule'
         type: string
-        example: Rule
+        example: code
         maxLength: 255
-      vtc:
-        description: 'Url of request type this rule applies to.'
+      object:
+        description: 'Url of this rule applies to.'
         type: string
-        example: 'https://vtc.dev.zuid-drecht.nl/request_types/2d39a167-ea2e-49d9-96aa-fc5d199bd57c'
+        example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
       property:
@@ -4670,12 +5035,80 @@ definitions:
         type: string
         example: value
         maxLength: 255
-      checks: []
+      operation:
+        description: Operation
+        type: string
+        example: operation
+        maxLength: 255
+      serviceEndpoint:
+        description: 'Url of endpoint.'
+        type: string
+        example: 'https://vcs.dev.zuid-drecht.nl/requests'
+        maxLength: 255
+        format: url
+      results:
+        description: 'The results of this rule'
+        type: '\ArrayCollection|\Result[]'
     required:
-      - name
-      - vtc
+      - code
+      - object
       - property
       - value
+      - operation
+      - serviceEndpoint
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-08-10 11:35:09'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-08-10 11:35:09'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -4780,12 +5213,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-03 11:29:15'
+        example: '2020-08-10 11:35:09'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-03 11:29:15'
+        example: '2020-08-10 11:35:09'
     required: []
   AuditTrail-write:
     properties:
@@ -4795,62 +5228,9 @@ definitions:
         example: 'This log line looks suspicius'
         maxLength: 2555
     required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-08-03 11:29:15'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-08-03 11:29:15'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
 tags:
   -
-    name: Check
+    name: Result
     description: |
       
       
@@ -4862,13 +5242,13 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -4879,20 +5259,20 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -
-    name: conduction.nl
-    url: vsbe.dev.conduction.nl
+    name: westfriesland.commonground.nu
+    url: vsbe.dev.westfriesland.commonground.nu
 externalDocs:
   -
     description: 'OAS Documentatie'
