@@ -55,6 +55,10 @@ class AppFixtures extends Fixture
             $rule->setValue('');
             $rule->setOperation('exists');
             $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'wfs', 'type'=>'request_conversions']));
+
+            $manager->persist($rule);
+
+            $manager->flush();
         }
     }
 }
