@@ -26,39 +26,53 @@ class ResultService
                 $object = $this->commonGroundService->getResource($result->getObject());
                 $resource[strtolower($object['@type'])] = $result->getObject();
 
+                if($rule->getProperty() == 'action'){
+                    $value = $result->getAction();
+                }else{
+                    $property = explode('.', $rule->getProperty());
+                    $value = $this->recursiveGetValue($property, $object);
+                }
+
+
+
                 switch ($rule->getOperation()) {
                     case '<=':
-                        if ($object[$rule->getProperty()] <= $rule->getValue()) {
+                        if ($value <= $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     case '>=':
-                        if ($object[$rule->getProperty()] >= $rule->getValue()) {
+                        if ($value >= $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     case '<':
-                        if ($object[$rule->getProperty()] < $rule->getValue()) {
+                        if ($value < $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     case '>':
-                        if ($object[$rule->getProperty()] > $rule->getValue()) {
+                        if ($value > $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     case '<>':
-                        if ($object[$rule->getProperty()] != $rule->getValue()) {
+                        if ($value <> $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     case '!=':
-                        if ($object[$rule->getProperty()] != $rule->getValue()) {
+                        if ($value != $rule->getValue()) {
+                            $result = $this->runServices($rule, $result, $resource);
+                        }
+                        break;
+                    case 'exists':
+                        if ($value) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
                     default:
-                        if ($object[$rule->getProperty()] == $rule->getValue()) {
+                        if ($value == $rule->getValue()) {
                             $result = $this->runServices($rule, $result, $resource);
                         }
                         break;
@@ -81,5 +95,22 @@ class ResultService
         $result->addRule($rule);
 
         return $result;
+    }
+
+    public function recursiveGetValue(array $property, array $resource){
+        $sub = array_shift($property);
+        $value = null;
+        if(
+            key_exists($sub,$resource) &&
+            is_array($resource[$sub])
+        )
+        {
+            $value = $this->recursiveGetValue($property, $resource[$sub]);
+        }
+        elseif(key_exists($sub, $resource))
+        {
+            $value = $resource[$sub];
+        }
+        return $value;
     }
 }

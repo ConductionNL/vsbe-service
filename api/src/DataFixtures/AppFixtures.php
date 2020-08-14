@@ -33,18 +33,28 @@ class AppFixtures extends Fixture
         ) {
             return false;
         }
-        var_dump('No issues');
 
         $rule = new Rule();
         $rule->setCode('vcs');
         $rule->setObject('VRC/request');
-        $rule->setProperty('@type');
-        $rule->setValue('Request');
+        $rule->setProperty('action');
+        $rule->setValue('CREATE');
         $rule->setOperation('==');
         $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs', 'type'=>'request_conversions']));
 
         $manager->persist($rule);
 
         $manager->flush();
+
+        if(strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
+            $this->params->get('app_domain') == 'westfriesland.commonground.nu'){
+            $wfRule = new Rule();
+            $rule->setCode('wfs');
+            $rule->setObject('VRC/request');
+            $rule->setProperty('properties.gemeente');
+            $rule->setValue('');
+            $rule->setOperation('exists');
+            $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'wfs', 'type'=>'request_conversions']));
+        }
     }
 }
