@@ -49,14 +49,14 @@ class AppFixtures extends Fixture
         if(strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
             $this->params->get('app_domain') == 'westfriesland.commonground.nu'){
             $wfRule = new Rule();
-            $rule->setCode('wfs');
-            $rule->setObject('VRC/request');
-            $rule->setProperty('properties.gemeente');
-            $rule->setValue('');
-            $rule->setOperation('exists');
-            $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'wfs', 'type'=>'request_conversions']));
+            $wfRule->setCode('wfs');
+            $wfRule->setObject('VRC/request');
+            $wfRule->setProperty('properties.gemeente');
+            $wfRule->setValue('');
+            $wfRule->setOperation('exists');
+            $wfRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'wfs', 'type'=>'request_conversions']));
 
-            $manager->persist($rule);
+            $manager->persist($wfRule);
 
             $manager->flush();
         }
