@@ -87,6 +87,22 @@ class Result
     private $object;
 
     /**
+     * @var string The action performed on the object
+     *
+     * @example CREATE
+     *
+     * @Gedmo\Versioned
+     * @Assert\Length(
+     *     max = 255
+     * )
+     * @Assert\NotNull
+     * @Assert\Choice({"CREATE","READ","UPDATE","DELETE"})
+     * @Groups({"read","write"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $action;
+
+    /**
      * @var string Qc url this result refers to.
      *
      * @example https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7
@@ -136,6 +152,8 @@ class Result
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dateModified;
+
+
 
     public function __construct()
     {
@@ -241,6 +259,18 @@ class Result
     public function setUris(?array $uris): self
     {
         $this->uris = $uris;
+
+        return $this;
+    }
+
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    public function setAction(?string $action): self
+    {
+        $this->action = $action;
 
         return $this;
     }

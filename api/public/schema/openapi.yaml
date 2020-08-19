@@ -2047,6 +2047,15 @@ paths:
               - asc
               - desc
         -
+          name: 'order[action]'
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        -
           name: 'order[qc]'
           in: query
           required: false
@@ -2056,7 +2065,7 @@ paths:
               - asc
               - desc
         -
-          name: 'order[uri]'
+          name: 'order[uris]'
           in: query
           required: false
           schema:
@@ -2163,6 +2172,22 @@ paths:
           style: form
           explode: true
         -
+          name: action
+          in: query
+          required: false
+          schema:
+            type: string
+        -
+          name: 'action[]'
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        -
           name: qc
           in: query
           required: false
@@ -2179,20 +2204,20 @@ paths:
           style: form
           explode: true
         -
-          name: uri
+          name: uris
           in: query
           required: false
           schema:
             type: string
         -
-          name: 'uri[]'
+          name: 'uris[]'
           in: query
           required: false
           schema:
             type: array
             items:
               type: string
-          style: form
+          style: deepObject
           explode: true
         -
           name: dateCreated
@@ -4544,17 +4569,21 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        action:
+          description: 'The action performed on the object'
+          type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        uri:
+        uris:
           description: 'Uri this result refers to.'
-          externalDocs:
-            url: 'http://schema.org/url'
-          type: string
+          type: array
+          items:
+            type: string
           nullable: true
         rules:
           type: array
@@ -4572,11 +4601,13 @@ components:
           nullable: true
       required:
         - object
+        - action
     Result-write:
       type: object
       description: ''
       required:
         - object
+        - action
       properties:
         object:
           description: 'The object to be checked'
@@ -4584,14 +4615,12 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        qc:
-          description: 'Qc url this result refers to.'
-          externalDocs:
-            url: 'http://schema.org/url'
+        action:
+          description: 'The action performed on the object'
           type: string
           nullable: true
-        uri:
-          description: 'Uri this result refers to.'
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4626,17 +4655,21 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
+        action:
+          description: 'The action performed on the object'
+          type: string
+          nullable: true
         qc:
           description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        uri:
+        uris:
           description: 'Uri this result refers to.'
-          externalDocs:
-            url: 'http://schema.org/url'
-          type: string
+          type: array
+          items:
+            type: string
           nullable: true
         rules:
           type: array
@@ -4654,11 +4687,13 @@ components:
           nullable: true
       required:
         - object
+        - action
     'Result:jsonld-write':
       type: object
       description: ''
       required:
         - object
+        - action
       properties:
         '@context':
           readOnly: true
@@ -4675,14 +4710,12 @@ components:
             url: 'http://schema.org/url'
           type: string
           nullable: true
-        qc:
-          description: 'Qc url this result refers to.'
-          externalDocs:
-            url: 'http://schema.org/url'
+        action:
+          description: 'The action performed on the object'
           type: string
           nullable: true
-        uri:
-          description: 'Uri this result refers to.'
+        qc:
+          description: 'Qc url this result refers to.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
@@ -4913,18 +4946,21 @@ definitions:
         example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
+      action:
+        description: 'The action performed on the object'
+        type: string
+        example: CREATE
+        maxLength: 255
       qc:
         description: 'Qc url this result refers to.'
         type: string
         example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
-      uri:
+      uris:
         description: 'Uri this result refers to.'
         type: string
-        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
-        maxLength: 255
-        format: url
+        example: 'https://trc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
       dateCreated:
         description: 'The moment this request was created'
         type: \DateTime
@@ -4934,6 +4970,7 @@ definitions:
       rules: []
     required:
       - object
+      - action
   Result-write:
     properties:
       object:
@@ -4942,14 +4979,13 @@ definitions:
         example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
         format: url
+      action:
+        description: 'The action performed on the object'
+        type: string
+        example: CREATE
+        maxLength: 255
       qc:
         description: 'Qc url this result refers to.'
-        type: string
-        example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
-        maxLength: 255
-        format: url
-      uri:
-        description: 'Uri this result refers to.'
         type: string
         example: 'https://qc.dev.zuid-drecht.nl/tasks/19f6b927-2a63-470f-a024-7efe98008de7'
         maxLength: 255
@@ -4957,6 +4993,7 @@ definitions:
       rules: []
     required:
       - object
+      - action
   Rule-read:
     properties:
       id:
@@ -5094,12 +5131,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-10 11:35:09'
+        example: '2020-08-14 10:10:14'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-10 11:35:09'
+        example: '2020-08-14 10:10:14'
     required: []
   ChangeLog-write:
     properties:
@@ -5213,12 +5250,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-10 11:35:09'
+        example: '2020-08-14 10:10:14'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-10 11:35:09'
+        example: '2020-08-14 10:10:14'
     required: []
   AuditTrail-write:
     properties:
