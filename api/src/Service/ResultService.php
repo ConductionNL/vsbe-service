@@ -24,7 +24,8 @@ class ResultService
         foreach ($rules as $rule) {
             if ($rule instanceof Rule) {
                 $object = $this->commonGroundService->getResource($result->getObject());
-                $resource[strtolower($object['@type'])] = $result->getObject();
+                $resource['resource'] = $result->getObject();
+                $resource[strtolower($object['@type'])] = $resource['resource'];
 
                 if($rule->getProperty() == 'action'){
                     $value = $result->getAction();
