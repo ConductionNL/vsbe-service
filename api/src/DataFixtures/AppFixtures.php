@@ -34,7 +34,6 @@ class AppFixtures extends Fixture
         ) {
             return false;
         }
-        var_dump('No issues');
 
         $rule = new Rule();
         $rule->setCode('vcs');
