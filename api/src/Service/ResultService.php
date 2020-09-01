@@ -18,13 +18,13 @@ class ResultService
         $this->commonGroundService = $commonGroundService;
     }
 
-    public function checkConditions(Rule $rule, Result $result, array $object) : bool
+    public function checkConditions(Rule $rule, Result $result, array $object): bool
     {
         $results = [];
-        foreach($rule->getConditions() as $condition){
-            if($condition->getProperty() == 'action'){
+        foreach ($rule->getConditions() as $condition) {
+            if ($condition->getProperty() == 'action') {
                 $value = $result->getAction();
-            }else{
+            } else {
                 $property = explode('.', $condition->getProperty());
                 $value = $this->recursiveGetValue($property, $object);
             }
@@ -58,7 +58,7 @@ class ResultService
                     }
                     break;
                 case '<>':
-                    if ($value <> $condition->getValue()) {
+                    if ($value != $condition->getValue()) {
                         $results[] = true;
                     } else {
                         $results[] = false;
@@ -88,11 +88,12 @@ class ResultService
 
             }
         }
-        foreach($results as $result){
-            if(!$result){
+        foreach ($results as $result) {
+            if (!$result) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -105,10 +106,9 @@ class ResultService
                 $resource['resource'] = $result->getObject();
                 $resource[strtolower($object['@type'])] = $resource['resource'];
 
-                if($this->checkConditions($rule, $result, $object)){
+                if ($this->checkConditions($rule, $result, $object)) {
                     $this->runServices($rule, $result, $resource);
                 }
-
             }
         }
 
@@ -120,7 +120,7 @@ class ResultService
         $res = $this->commonGroundService->createResource($resource, $rule->getServiceEndpoint());
 
         $uris = $result->getUris();
-        if($uris != null){
+        if ($uris != null) {
             $uris[] = $res['result'];
         } else {
             $uris = [];
@@ -133,20 +133,19 @@ class ResultService
         return $result;
     }
 
-    public function recursiveGetValue(array $property, array $resource){
+    public function recursiveGetValue(array $property, array $resource)
+    {
         $sub = array_shift($property);
         $value = null;
-        if(
-            key_exists($sub,$resource) &&
+        if (
+            key_exists($sub, $resource) &&
             is_array($resource[$sub])
-        )
-        {
+        ) {
             $value = $this->recursiveGetValue($property, $resource[$sub]);
-        }
-        elseif(key_exists($sub, $resource))
-        {
+        } elseif (key_exists($sub, $resource)) {
             $value = $resource[$sub];
         }
+
         return $value;
     }
 }

@@ -153,8 +153,6 @@ class Result
      */
     private $dateModified;
 
-
-
     public function __construct()
     {
         $this->rules = new ArrayCollection();
