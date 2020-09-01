@@ -54,13 +54,12 @@ class AppFixtures extends Fixture
 
         $rule->addCondition($condition);
 
-
         $manager->persist($rule);
 
         $manager->flush();
 
-        if(strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
-            $this->params->get('app_domain') == 'westfriesland.commonground.nu'){
+        if (strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
+            $this->params->get('app_domain') == 'westfriesland.commonground.nu') {
             $wfRule = new Rule();
             $wfRule->setCode('wfs');
             $wfRule->setObject('VRC/request');
@@ -84,9 +83,8 @@ class AppFixtures extends Fixture
 
             $manager->flush();
         }
-        if(strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
-            $this->params->get('app_domain') == 'zuid-drecht.nl')
-        {
+        if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl') {
             $tsRule = new Rule();
             $tsRule->setCode('ts');
             $tsRule->setObject('VRC/request');
