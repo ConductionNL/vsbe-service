@@ -18,6 +18,84 @@ class ResultService
         $this->commonGroundService = $commonGroundService;
     }
 
+    public function checkConditions(Rule $rule, Result $result, array $object) : bool
+    {
+        $results = [];
+        foreach($rule->getConditions() as $condition){
+            if($condition->getProperty() == 'action'){
+                $value = $result->getAction();
+            }else{
+                $property = explode('.', $condition->getProperty());
+                $value = $this->recursiveGetValue($property, $object);
+            }
+            switch ($condition->getOperation()) {
+                case '<=':
+                    if ($value <= $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case '>=':
+                    if ($value >= $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case '<':
+                    if ($value < $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case '>':
+                    if ($value > $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case '<>':
+                    if ($value <> $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case '!=':
+                    if ($value != $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                case 'exists':
+                    if ($value) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+                default:
+                    if ($value == $condition->getValue()) {
+                        $results[] = true;
+                    } else {
+                        $results[] = false;
+                    }
+                    break;
+
+            }
+        }
+        foreach($results as $result){
+            if(!$result){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function performChecks(Result $result)
     {
         $rules = $this->em->getRepository('App:Rule')->findAll();
@@ -26,44 +104,10 @@ class ResultService
                 $object = $this->commonGroundService->getResource($result->getObject());
                 $resource[strtolower($object['@type'])] = $result->getObject();
 
-                switch ($rule->getOperation()) {
-                    case '<=':
-                        if ($object[$rule->getProperty()] <= $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    case '>=':
-                        if ($object[$rule->getProperty()] >= $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    case '<':
-                        if ($object[$rule->getProperty()] < $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    case '>':
-                        if ($object[$rule->getProperty()] > $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    case '<>':
-                        if ($object[$rule->getProperty()] != $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    case '!=':
-                        if ($object[$rule->getProperty()] != $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-                    default:
-                        if ($object[$rule->getProperty()] == $rule->getValue()) {
-                            $result = $this->runServices($rule, $result, $resource);
-                        }
-                        break;
-
+                if($this->checkConditions($rule, $result, $object)){
+                    $this->runServices($rule, $result, $resource);
                 }
+
             }
         }
 
@@ -75,7 +119,12 @@ class ResultService
         $res = $this->commonGroundService->createResource($resource, $rule->getServiceEndpoint());
 
         $uris = $result->getUris();
-        $uris[] = $res['result'];
+        if($uris != null){
+            $uris[] = $res['result'];
+        } else {
+            $uris = [];
+            $uris[] = $res['result'];
+        }
 
         $result->setUris($uris);
         $result->addRule($rule);
