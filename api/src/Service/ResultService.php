@@ -28,10 +28,10 @@ class ResultService
                 $property = explode('.', $condition->getProperty());
                 $value = $this->recursiveGetValue($property, $object);
             }
-            if(substr($condition->getValue(),0,14) != 'resourceValue:'){
+            if (substr($condition->getValue(), 0, 14) != 'resourceValue:') {
                 $targetValue = $condition->getValue();
             } else {
-                $targetValue = $this->recursiveGetValue(explode('.', substr($condition->getValue(), 14)),$object);
+                $targetValue = $this->recursiveGetValue(explode('.', substr($condition->getValue(), 14)), $object);
             }
             switch ($condition->getOperation()) {
                 case '<=':
@@ -63,7 +63,7 @@ class ResultService
                     }
                     break;
                 case '<>':
-                    if ($value <> $targetValue) {
+                    if ($value != $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
