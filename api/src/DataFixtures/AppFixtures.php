@@ -59,7 +59,8 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         if (strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
-            $this->params->get('app_domain') == 'westfriesland.commonground.nu') {
+            $this->params->get('app_domain') == 'westfriesland.commonground.nu')
+        {
             $wfRule = new Rule();
             $wfRule->setCode('wfs');
             $wfRule->setObject('VRC/request');
@@ -79,12 +80,20 @@ class AppFixtures extends Fixture
 
             $wfRule->addCondition($condition);
 
+            $condition = new Condition();
+            $condition->setProperty('organization');
+            $condition->setValue('resourceValue:properties.gemeente');
+            $condition->setOperation('!=');
+
+            $wfRule->addCondition($condition);
+
             $manager->persist($wfRule);
 
             $manager->flush();
         }
         if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
-            $this->params->get('app_domain') == 'zuid-drecht.nl') {
+            $this->params->get('app_domain') == 'zuid-drecht.nl')
+        {
             $tsRule = new Rule();
             $tsRule->setCode('ts');
             $tsRule->setObject('VRC/request');
