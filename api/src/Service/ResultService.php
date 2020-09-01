@@ -102,7 +102,8 @@ class ResultService
         foreach ($rules as $rule) {
             if ($rule instanceof Rule) {
                 $object = $this->commonGroundService->getResource($result->getObject());
-                $resource[strtolower($object['@type'])] = $result->getObject();
+                $resource['resource'] = $result->getObject();
+                $resource[strtolower($object['@type'])] = $resource['resource'];
 
                 if($this->checkConditions($rule, $result, $object)){
                     $this->runServices($rule, $result, $resource);
@@ -130,5 +131,22 @@ class ResultService
         $result->addRule($rule);
 
         return $result;
+    }
+
+    public function recursiveGetValue(array $property, array $resource){
+        $sub = array_shift($property);
+        $value = null;
+        if(
+            key_exists($sub,$resource) &&
+            is_array($resource[$sub])
+        )
+        {
+            $value = $this->recursiveGetValue($property, $resource[$sub]);
+        }
+        elseif(key_exists($sub, $resource))
+        {
+            $value = $resource[$sub];
+        }
+        return $value;
     }
 }
