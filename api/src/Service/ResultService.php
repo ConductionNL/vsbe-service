@@ -28,44 +28,49 @@ class ResultService
                 $property = explode('.', $condition->getProperty());
                 $value = $this->recursiveGetValue($property, $object);
             }
+            if (substr($condition->getValue(), 0, 14) != 'resourceValue:') {
+                $targetValue = $condition->getValue();
+            } else {
+                $targetValue = $this->recursiveGetValue(explode('.', substr($condition->getValue(), 14)), $object);
+            }
             switch ($condition->getOperation()) {
                 case '<=':
-                    if ($value <= $condition->getValue()) {
+                    if ($value <= $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
                     }
                     break;
                 case '>=':
-                    if ($value >= $condition->getValue()) {
+                    if ($value >= $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
                     }
                     break;
                 case '<':
-                    if ($value < $condition->getValue()) {
+                    if ($value < $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
                     }
                     break;
                 case '>':
-                    if ($value > $condition->getValue()) {
+                    if ($value > $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
                     }
                     break;
                 case '<>':
-                    if ($value != $condition->getValue()) {
+                    if ($value != $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
                     }
                     break;
                 case '!=':
-                    if ($value != $condition->getValue()) {
+                    if ($value != $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;
@@ -79,7 +84,7 @@ class ResultService
                     }
                     break;
                 default:
-                    if ($value == $condition->getValue()) {
+                    if ($value == $targetValue) {
                         $results[] = true;
                     } else {
                         $results[] = false;

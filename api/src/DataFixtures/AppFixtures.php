@@ -79,6 +79,13 @@ class AppFixtures extends Fixture
 
             $wfRule->addCondition($condition);
 
+            $condition = new Condition();
+            $condition->setProperty('organization');
+            $condition->setValue('resourceValue:properties.gemeente');
+            $condition->setOperation('!=');
+
+            $wfRule->addCondition($condition);
+
             $manager->persist($wfRule);
 
             $manager->flush();

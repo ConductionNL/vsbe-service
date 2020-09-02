@@ -54,7 +54,7 @@ class Condition
     private $value;
 
     /**
-     * @var Rule The rules that use this condition
+     * @var Rule The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"
      *
      * @Groups({"read","write"})
      * @MaxDepth(1)
