@@ -102,57 +102,12 @@ class Rule
     private $object;
 
     /**
-     * @var string Property name
-     *
-     * @example property
-     *
-     * @Gedmo\Versioned
-     * @Assert\NotNull
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $property;
-
-    /**
-     * @var string Value name
-     *
-     * @example value
-     *
-     * @Gedmo\Versioned
-     * @Assert\NotNull
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $value;
-
-    /**
      * @var ArrayCollection|Result[] The results of this rule
      * @Groups({"read","write"})
      * @MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="App\Entity\Result", mappedBy="rules")
      */
     private $results;
-
-    /**
-     * @var string Operation
-     *
-     * @example operation
-     *
-     * @Gedmo\Versioned
-     * @Assert\NotNull
-     * @Assert\Length(
-     *     max = 255
-     * )
-     * @Groups({"read","write"})
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $operation;
 
     /**
      * @var string Url of endpoint.
@@ -188,9 +143,18 @@ class Rule
      */
     private $dateModified;
 
+    /**
+     * @var ArrayCollection|Condition[] The conditions that have to be met
+     * @Groups({"read","write"})
+     * @MaxDepth(1)
+     * @ORM\OneToMany(targetEntity=Condition::class, mappedBy="rule", orphanRemoval=true, cascade={"persist","remove"})
+     */
+    private $conditions;
+
     public function __construct()
     {
         $this->results = new ArrayCollection();
+        $this->conditions = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -218,42 +182,6 @@ class Rule
     public function setObject(string $object): self
     {
         $this->object = $object;
-
-        return $this;
-    }
-
-    public function getProperty(): ?string
-    {
-        return $this->property;
-    }
-
-    public function setProperty(string $property): self
-    {
-        $this->property = $property;
-
-        return $this;
-    }
-
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
-
-    public function setValue(string $value): self
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    public function getOperation(): ?string
-    {
-        return $this->operation;
-    }
-
-    public function setOperation(string $operation): self
-    {
-        $this->operation = $operation;
 
         return $this;
     }
@@ -315,6 +243,37 @@ class Rule
     {
         if ($this->results->contains($result)) {
             $this->results->removeElement($result);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Condition[]
+     */
+    public function getConditions(): Collection
+    {
+        return $this->conditions;
+    }
+
+    public function addCondition(Condition $condition): self
+    {
+        if (!$this->conditions->contains($condition)) {
+            $this->conditions[] = $condition;
+            $condition->setRule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCondition(Condition $condition): self
+    {
+        if ($this->conditions->contains($condition)) {
+            $this->conditions->removeElement($condition);
+            // set the owning side to null (unless already changed)
+            if ($condition->getRule() === $this) {
+                $condition->setRule(null);
+            }
         }
 
         return $this;

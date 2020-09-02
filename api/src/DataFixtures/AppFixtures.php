@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Condition;
 use App\Entity\Rule;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -37,26 +38,80 @@ class AppFixtures extends Fixture
         $rule = new Rule();
         $rule->setCode('vcs');
         $rule->setObject('VRC/request');
-        $rule->setProperty('action');
-        $rule->setValue('CREATE');
-        $rule->setOperation('==');
         $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs', 'type'=>'request_conversions']));
+
+        $condition = new Condition();
+        $condition->setProperty('action');
+        $condition->setValue('CREATE');
+        $condition->setOperation('==');
+
+        $rule->addCondition($condition);
+
+        $condition = new Condition();
+        $condition->setProperty('@type');
+        $condition->setValue('Request');
+        $condition->setOperation('==');
+
+        $rule->addCondition($condition);
 
         $manager->persist($rule);
 
         $manager->flush();
 
-        if(strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
-            $this->params->get('app_domain') == 'westfriesland.commonground.nu'){
+        if (strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') !== false ||
+            $this->params->get('app_domain') == 'westfriesland.commonground.nu') {
             $wfRule = new Rule();
             $wfRule->setCode('wfs');
             $wfRule->setObject('VRC/request');
-            $wfRule->setProperty('properties.gemeente');
-            $wfRule->setValue('');
-            $wfRule->setOperation('exists');
             $wfRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'wfs', 'type'=>'request_conversions']));
 
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Request');
+            $condition->setOperation('==');
+
+            $wfRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('properties.gemeente');
+            $condition->setValue('');
+            $condition->setOperation('exists');
+
+            $wfRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('organization');
+            $condition->setValue('resourceValue:properties.gemeente');
+            $condition->setOperation('!=');
+
+            $wfRule->addCondition($condition);
+
             $manager->persist($wfRule);
+
+            $manager->flush();
+        }
+        if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl') {
+            $tsRule = new Rule();
+            $tsRule->setCode('ts');
+            $tsRule->setObject('VRC/request');
+            $tsRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'ts', 'type'=>'web_hooks']));
+
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Request');
+            $condition->setOperation('==');
+
+            $tsRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('requestType');
+            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'d0badfff-1c90-4ddb-80fc-49842d806eaa']));
+            $condition->setOperation('==');
+
+            $tsRule->addCondition($condition);
+
+            $manager->persist($tsRule);
 
             $manager->flush();
         }
