@@ -114,6 +114,38 @@ class AppFixtures extends Fixture
             $manager->persist($tsRule);
 
             $manager->flush();
+
+            $checkInRule = new Rule();
+            $checkInRule->setCode('chis');
+            $checkInRule->setObject('VRC/request');
+            $checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
+
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Request');
+            $condition->setOperation('==');
+
+            $checkInRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('requestType');
+            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'c328e6b4-77f6-4c58-8544-4128452acc80']));
+            $condition->setOperation('==');
+
+            $checkInRule->addCondition($condition);
+
+            $manager->persist($tsRule);
+
+            $condition = new Condition();
+            $condition->setProperty('status');
+            $condition->setValue('submitted');
+            $condition->setOperation('==');
+
+            $checkInRule->addCondition($condition);
+
+            $manager->persist($tsRule);
+
+            $manager->flush();
         }
     }
 }
