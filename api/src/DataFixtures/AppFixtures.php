@@ -134,7 +134,7 @@ class AppFixtures extends Fixture
 
             $checkInRule->addCondition($condition);
 
-            $manager->persist($tsRule);
+            $manager->persist($checkInRule);
 
             $condition = new Condition();
             $condition->setProperty('status');
@@ -143,7 +143,7 @@ class AppFixtures extends Fixture
 
             $checkInRule->addCondition($condition);
 
-            $manager->persist($tsRule);
+            $manager->persist($checkInRule);
 
             $manager->flush();
         }
