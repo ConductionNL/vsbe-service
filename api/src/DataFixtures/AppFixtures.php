@@ -136,15 +136,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($checkInRule);
 
-            $condition = new Condition();
-            $condition->setProperty('status');
-            $condition->setValue('submitted');
-            $condition->setOperation('==');
-
-            $checkInRule->addCondition($condition);
-
-            $manager->persist($checkInRule);
-
             $manager->flush();
         }
     }
