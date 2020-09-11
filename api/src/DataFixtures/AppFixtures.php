@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
             $begrafenisRule = new Rule();
             $begrafenisRule->setCode('bgs');
             $begrafenisRule->setObject('VRC/request');
-            $begrafenisRule->setServiceEndpoint('https://dev.westfriesland.commonground.nu/api/v1/bgs/web_hooks');
+            $begrafenisRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'bgs', 'type'=>'web_hooks']));
 
             $condition = new Condition();
             $condition->setProperty('@type');
