@@ -88,6 +88,41 @@ class AppFixtures extends Fixture
 
             $manager->persist($wfRule);
 
+            $begrafenisRule = new Rule();
+            $begrafenisRule->setCode('bgs');
+            $begrafenisRule->setObject('VRC/request');
+            $begrafenisRule->setServiceEndpoint('https://dev.westfriesland.commonground.nu/api/v1/bgs/web_hooks');
+
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Request');
+            $condition->setOperation('==');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('requestType');
+            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'c2e9824e-2566-460f-ab4c-905f20cddb6c']));
+            $condition->setOperation('==');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('properties.begraafplaats');
+            $condition->setOperation('exists');
+            $condition->setValue('');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('properties.datum');
+            $condition->setOperation('exists');
+            $condition->setValue('');
+
+            $begrafenisRule->addCondition($condition);
+
+            $manager->persist($begrafenisRule);
+
             $manager->flush();
         }
         if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
