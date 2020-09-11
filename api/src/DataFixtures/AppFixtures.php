@@ -88,6 +88,47 @@ class AppFixtures extends Fixture
 
             $manager->persist($wfRule);
 
+            $begrafenisRule = new Rule();
+            $begrafenisRule->setCode('bgs');
+            $begrafenisRule->setObject('VRC/request');
+            $begrafenisRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'bgs', 'type'=>'web_hooks']));
+
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Request');
+            $condition->setOperation('==');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('requestType');
+
+            if($this->params->get('app_env') == 'prod'){
+                $condition->setValue('https://vtc.westfriesland.commonground.nu/request_types/c2e9824e-2566-460f-ab4c-905f20cddb6c');
+            }else{
+                $condition->setValue('https://vtc.dev.westfriesland.commonground.nu/request_types/c2e9824e-2566-460f-ab4c-905f20cddb6c');
+            }
+            
+            $condition->setOperation('==');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('properties.begraafplaats');
+            $condition->setOperation('exists');
+            $condition->setValue('');
+
+            $begrafenisRule->addCondition($condition);
+
+            $condition = new Condition();
+            $condition->setProperty('properties.datum');
+            $condition->setOperation('exists');
+            $condition->setValue('');
+
+            $begrafenisRule->addCondition($condition);
+
+            $manager->persist($begrafenisRule);
+
             $manager->flush();
         }
         if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
