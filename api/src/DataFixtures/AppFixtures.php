@@ -118,7 +118,9 @@ class AppFixtures extends Fixture
             $checkInRule = new Rule();
             $checkInRule->setCode('chis');
             $checkInRule->setObject('VRC/request');
-            $checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
+            $checkInRule->setServiceEndpoint('https://dev.zuid-drecht.nl/api/v1/chis/web_hooks');
+            //^temp oplossing
+            //$checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
 
             $condition = new Condition();
             $condition->setProperty('@type');
