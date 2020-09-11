@@ -4497,7 +4497,7 @@ components:
           description: 'The value the property should have'
           type: string
         rule:
-          description: 'The rules that use this condition'
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
           $ref: '#/components/schemas/Rule-read'
     Condition-write:
       type: object
@@ -4512,7 +4512,7 @@ components:
           description: 'The value the property should have'
           type: string
         rule:
-          description: 'The rules that use this condition'
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
           $ref: '#/components/schemas/Rule-write'
     'Condition:jsonld-read':
       type: object
@@ -4543,7 +4543,7 @@ components:
           description: 'The value the property should have'
           type: string
         rule:
-          description: 'The rules that use this condition'
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
           $ref: '#/components/schemas/Rule:jsonld-read'
     'Condition:jsonld-write':
       type: object
@@ -4567,7 +4567,7 @@ components:
           description: 'The value the property should have'
           type: string
         rule:
-          description: 'The rules that use this condition'
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
           $ref: '#/components/schemas/Rule:jsonld-write'
     Result-read:
       type: object
@@ -5048,6 +5048,59 @@ definitions:
       - code
       - object
       - serviceEndpoint
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-09-11 11:35:58'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-09-11 11:35:58'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+    required: []
   AuditTrail-read:
     properties:
       id:
@@ -5152,12 +5205,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-01 13:46:12'
+        example: '2020-09-11 11:35:58'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-01 13:46:12'
+        example: '2020-09-11 11:35:58'
     required: []
   AuditTrail-write:
     properties:
@@ -5165,59 +5218,6 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
-        maxLength: 2555
-    required: []
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-09-01 13:46:12'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-09-01 13:46:12'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -5234,13 +5234,13 @@ tags:
       
       
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
@@ -5251,15 +5251,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the ChangeLog resource'
-      write: 'write right to the ChangeLog resource'
+      read: 'read right to the AuditTrail resource'
+      write: 'write right to the AuditTrail resource'
 host: irc.zaakonline.nl
 servers:
   -
