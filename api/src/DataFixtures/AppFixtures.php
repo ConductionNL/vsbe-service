@@ -102,7 +102,7 @@ class AppFixtures extends Fixture
 
             $condition = new Condition();
             $condition->setProperty('requestType');
-            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'c2e9824e-2566-460f-ab4c-905f20cddb6c']));
+            $condition->setValue('https://vtc.dev.westfriesland.commonground.nu/request_types/c2e9824e-2566-460f-ab4c-905f20cddb6c');
             $condition->setOperation('==');
 
             $begrafenisRule->addCondition($condition);
