@@ -105,10 +105,10 @@ class AppFixtures extends Fixture
 
             if($this->params->get('app_env') == 'prod'){
                 $condition->setValue('https://vtc.westfriesland.commonground.nu/request_types/c2e9824e-2566-460f-ab4c-905f20cddb6c');
-            }else{
+            } else {
                 $condition->setValue('https://vtc.dev.westfriesland.commonground.nu/request_types/c2e9824e-2566-460f-ab4c-905f20cddb6c');
             }
-            
+
             $condition->setOperation('==');
 
             $begrafenisRule->addCondition($condition);
@@ -170,7 +170,12 @@ class AppFixtures extends Fixture
 
             $condition = new Condition();
             $condition->setProperty('requestType');
-            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'c328e6b4-77f6-4c58-8544-4128452acc80']));
+            if($this->params->get('app_env') == 'prod'){
+                $condition->setValue('https://vtc.westfriesland.commonground.nu/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+            } else {
+                $condition->setValue('https://vtc.dev.westfriesland.commonground.nu/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+            }
+
             $condition->setOperation('==');
 
             $checkInRule->addCondition($condition);
