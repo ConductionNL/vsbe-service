@@ -4,20 +4,20 @@
 
 settings:
   registryBase: docker.io/conduction
-  projectName: pc
-  name: pc
-  title: Proto component commonground
-  version: V1.0
-  majorVersion: v1
+  projectName: vsbe
+  name: vsbe
+  title: Very small business engine
+  version: V.0.1
+  majorVersion: 
   id: 
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
-  repro: https://github.com/ConductionNL/proto-component
-  demo: pc.zaakonline.nl
-  container: https://hub.docker.com/repository/docker/conduction/pc-php
-  domain: conduction.nl
-  subdomain: pc
-  subpath: pc
+  repro: https://github.com/ConductionNL/vsbe-service
+  demo: vsbe.zuid-drecht.nl
+  container: https://hub.docker.com/repository/docker/conduction/vsbe-php
+  domain: zuid-drecht.nl
+  subdomain: vsbe
+  subpath: vsbe
   subpathRouting: true
   organisationName: Conduction
   email: info@conduction.nl
@@ -51,11 +51,11 @@ settings:
 
 security:
   commongroundId: "9329d8d0-1d5e-433c-bb47-6991053c7fcb"
-  commongroundKey: "9329d8d0-1d5e-433c-bb47-6991053c7fcb"
+  commongroundKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
   applicationKey: "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
   userKey: "79d5b14c-70ab-41fb-ac02-917e3288870b"
-  authorisationProviderUser: https://uc.zuid-drecht.nl
-  authorisationProviderApplication: https://openzaak.dev.zuid-drecht.nl/authorizaties/api/v1
+  authorisationProviderUser: https://uc.larping.eu
+  authorisationProviderApplication: https://ac.larping.eu
 
 
 php:
