@@ -396,7 +396,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"code\": \"4231\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"property\": \"property\",\n    \"value\": \"value\",\n    \"operation\": \">\",\n    \"serviceEndpoint\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\"\n}"
+							"raw": "{\n    \"code\": \"4231\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"property\": \"property\",\n    \"value\": \"value\",\n    \"operation\": \">\",\n    \"serviceEndpoint\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\"\n}",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{baseUrl}}/rules",
@@ -977,7 +980,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"code\": \"4231\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"property\": \"property\",\n    \"value\": \"value\",\n    \"operation\": \"<\",\n    \"serviceEndpoint\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\"\n}"
+							"raw": "{\n    \"object\": \"https://dev.zuid-drecht.nl/api/v1/vrc/request\",\n    \"serviceEndpoint\": \"https://dev.zuid-drecht.nl/api/v1/chis/web_hooks\"\n}",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{baseUrl}}/rules/{{rule}}",
@@ -1477,36 +1483,36 @@
 							"script": {
 								"id": "9c301b58-2f68-4309-921d-d4ac318b5df0",
 								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
+									"// // example using pm.response.to.have\r",
+									"// pm.test(\"response is ok\", function () {\r",
+									"//     pm.response.to.have.status(201);\r",
+									"// });\r",
 									"\r",
-									"// example using response assertions\r",
-									"pm.test(\"response should be okay to process\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
+									"// // example using response assertions\r",
+									"// pm.test(\"response should be okay to process\", function () {\r",
+									"//     pm.response.to.not.be.error;\r",
+									"//     pm.response.to.not.have.jsonBody(\"error\");\r",
+									"// });\r",
 									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"     // assert that the status code is 200\r",
-									"     // pm.response.to.be.created; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"     // assert that the response has a valid JSON body\r",
-									"     pm.response.to.be.withBody;\r",
-									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
-									"});\r",
+									"// // example using pm.response.to.be*\r",
+									"// pm.test(\"response must be valid and have a body\", function () {\r",
+									"//      // assert that the status code is 200\r",
+									"//      // pm.response.to.be.created; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"//      // assert that the response has a valid JSON body\r",
+									"//      pm.response.to.be.withBody;\r",
+									"//      pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"// });\r",
 									"\r",
 									"\r",
-									"pm.test(\"Set ID\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    console.log(jsonData);\r",
-									"    //var payloadData = JSON.parse(jsonData.Payload); //parsed payload\r",
+									"// pm.test(\"Set ID\", function () {\r",
+									"//     var jsonData = pm.response.json();\r",
+									"//     console.log(jsonData);\r",
+									"//     //var payloadData = JSON.parse(jsonData.Payload); //parsed payload\r",
 									"\r",
-									"    //console.log(payloadData.Id);\r",
+									"//     //console.log(payloadData.Id);\r",
 									"\r",
-									"    pm.environment.set(\"result\", jsonData.id);\r",
-									"});"
+									"//     pm.environment.set(\"result\", jsonData.id);\r",
+									"// });"
 								],
 								"type": "text/javascript"
 							}
@@ -1557,7 +1563,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qc\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"uri\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"rules\": [\n        \"/rules/{{rule}}\"\n        ]\n}"
+							"raw": "{\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\"\n}",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{baseUrl}}/results",
@@ -1787,25 +1796,25 @@
 							"script": {
 								"id": "b95ee7c0-019f-4ab3-a689-6bd8cf557b73",
 								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
+									"// // example using pm.response.to.have\r",
+									"// pm.test(\"response is ok\", function () {\r",
+									"//     pm.response.to.have.status(200);\r",
+									"// });\r",
 									"\r",
-									"// example using response assertions\r",
-									"pm.test(\"response should be okay to process\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
+									"// // example using response assertions\r",
+									"// pm.test(\"response should be okay to process\", function () {\r",
+									"//     pm.response.to.not.be.error;\r",
+									"//     pm.response.to.not.have.jsonBody(\"error\");\r",
+									"// });\r",
 									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"    // assert that the status code is 200\r",
-									"    pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"    // assert that the response has a valid JSON body\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
-									"});"
+									"// // example using pm.response.to.be*\r",
+									"// pm.test(\"response must be valid and have a body\", function () {\r",
+									"//     // assert that the status code is 200\r",
+									"//     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"//     // assert that the response has a valid JSON body\r",
+									"//     pm.response.to.be.withBody;\r",
+									"//     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"// });"
 								],
 								"type": "text/javascript"
 							}
@@ -2069,25 +2078,25 @@
 							"script": {
 								"id": "e7aa0517-1dfe-4f83-8ca8-dc5e42b9192d",
 								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
+									"// // example using pm.response.to.have\r",
+									"// pm.test(\"response is ok\", function () {\r",
+									"//     pm.response.to.have.status(200);\r",
+									"// });\r",
 									"\r",
-									"// example using response assertions\r",
-									"pm.test(\"response should be okay to process\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"    pm.response.to.not.have.jsonBody(\"error\");\r",
-									"});\r",
+									"// // example using response assertions\r",
+									"// pm.test(\"response should be okay to process\", function () {\r",
+									"//     pm.response.to.not.be.error;\r",
+									"//     pm.response.to.not.have.jsonBody(\"error\");\r",
+									"// });\r",
 									"\r",
-									"// example using pm.response.to.be*\r",
-									"pm.test(\"response must be valid and have a body\", function () {\r",
-									"     // assert that the status code is 200\r",
-									"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
-									"     // assert that the response has a valid JSON body\r",
-									"     pm.response.to.be.withBody;\r",
-									"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
-									"});"
+									"// // example using pm.response.to.be*\r",
+									"// pm.test(\"response must be valid and have a body\", function () {\r",
+									"//      // assert that the status code is 200\r",
+									"//      pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants\r",
+									"//      // assert that the response has a valid JSON body\r",
+									"//      pm.response.to.be.withBody;\r",
+									"//      pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed\r",
+									"// });"
 								],
 								"type": "text/javascript"
 							}
@@ -2138,7 +2147,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qc\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"uri\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"rules\": [\n        \"/rules/{{rule}}\"\n        ]\n}"
+							"raw": "{\n    \"qc\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"uri\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"object\": \"https://vrc.dev.zuid-drecht.nl/requests/e9fd41d7-1ea4-4781-bf03-a050c27add0f\",\n    \"rules\": [\n        \"/rules/{{rule}}\"\n        ]\n}",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{baseUrl}}/results/{{result}}",
@@ -2387,10 +2399,10 @@
 							"script": {
 								"id": "cca91bdd-1b34-4710-8523-e4e0285508d4",
 								"exec": [
-									"// example using pm.response.to.have\r",
-									"pm.test(\"response is ok\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});\r",
+									"// // example using pm.response.to.have\r",
+									"// pm.test(\"response is ok\", function () {\r",
+									"//     pm.response.to.have.status(204);\r",
+									"// });\r",
 									""
 								],
 								"type": "text/javascript"
@@ -2840,12 +2852,12 @@
 	],
 	"variable": [
 		{
-			"id": "c42878a2-3957-4065-84ee-ae51bc7ba1e5",
+			"id": "c1b3f49d-1b3b-479f-ac33-b9fa70ab27d7",
 			"key": "baseUrl",
-			"value": "vsbe.dev.zuid-drecht.nl"
+			"value": "localhost"
 		},
 		{
-			"id": "fa39727a-8a00-4dfb-9232-e1b62008c7c6",
+			"id": "e863f1ef-130a-4fe8-9805-453042b36a36",
 			"key": "authorization",
 			"value": "45c1a4b6-59d3-4a6e-86bf-88a872f35845"
 		}
