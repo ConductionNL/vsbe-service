@@ -136,7 +136,7 @@ class AppFixtures extends Fixture
             $tsRule = new Rule();
             $tsRule->setCode('ts');
             $tsRule->setObject('VRC/request');
-            $tsRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'ts', 'type'=>'web_hooks']));
+            $tsRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component' => 'ts', 'type' => 'web_hooks']));
 
             $condition = new Condition();
             $condition->setProperty('@type');
@@ -147,7 +147,7 @@ class AppFixtures extends Fixture
 
             $condition = new Condition();
             $condition->setProperty('requestType');
-            $condition->setValue($this->commonGroundService->cleanUrl(['component'=>'vtc', 'type'=>'request_types', 'id'=>'d0badfff-1c90-4ddb-80fc-49842d806eaa']));
+            $condition->setValue($this->commonGroundService->cleanUrl(['component' => 'vtc', 'type' => 'request_types', 'id' => 'd0badfff-1c90-4ddb-80fc-49842d806eaa']));
             $condition->setOperation('==');
 
             $tsRule->addCondition($condition);
@@ -155,7 +155,11 @@ class AppFixtures extends Fixture
             $manager->persist($tsRule);
 
             $manager->flush();
-
+        }
+        if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl') ||
+            strpos($this->params->get('app_domain'), 'checking.nu') !== false ||
+            $this->params->get('app_domain') == 'checking.nu') {
             $checkInRule = new Rule();
             $checkInRule->setCode('chis');
             $checkInRule->setObject('VRC/request');
