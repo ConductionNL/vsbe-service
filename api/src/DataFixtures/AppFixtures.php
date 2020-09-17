@@ -157,7 +157,7 @@ class AppFixtures extends Fixture
             $manager->flush();
         }
         if (strpos($this->params->get('app_domain'), 'zuid-drecht.nl') !== false ||
-            $this->params->get('app_domain') == 'zuid-drecht.nl') ||
+            $this->params->get('app_domain') == 'zuid-drecht.nl' ||
             strpos($this->params->get('app_domain'), 'checking.nu') !== false ||
             $this->params->get('app_domain') == 'checking.nu') {
             $checkInRule = new Rule();
