@@ -156,8 +156,9 @@ class AppFixtures extends Fixture
 
             $manager->flush();
 
+            // Checkin vrc requests
             $checkInRule = new Rule();
-            $checkInRule->setCode('chis');
+            $checkInRule->setCode('chisRequests');
             $checkInRule->setObject('VRC/request');
             $checkInRule->setServiceEndpoint('http://chis.dev.svc.cluster.local/web_hooks');
             //$checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
@@ -177,6 +178,24 @@ class AppFixtures extends Fixture
                 $condition->setValue('https://vtc.dev.zuid-drecht.nl/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
             }
 
+            $condition->setOperation('==');
+
+            $checkInRule->addCondition($condition);
+
+            $manager->persist($checkInRule);
+
+            $manager->flush();
+
+            // Checkin chin checkins
+            $checkInRule = new Rule();
+            $checkInRule->setCode('chisCheckins');
+            $checkInRule->setObject('CHIN/checkin');
+            $checkInRule->setServiceEndpoint('http://chis.dev.svc.cluster.local/web_hooks');
+            //$checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
+
+            $condition = new Condition();
+            $condition->setProperty('@type');
+            $condition->setValue('Checkin');
             $condition->setOperation('==');
 
             $checkInRule->addCondition($condition);
