@@ -178,9 +178,9 @@ class AppFixtures extends Fixture
             $condition = new Condition();
             $condition->setProperty('requestType');
             if ($this->params->get('app_env') == 'prod') {
-                $condition->setValue('https://vtc.zuid-drecht.nl/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+                $condition->setValue('https://zuid-drecht.nl/api/v1/vtc/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
             } else {
-                $condition->setValue('https://vtc.dev.zuid-drecht.nl/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+                $condition->setValue('https://dev.zuid-drecht.nl/api/v1/vtc/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
             }
 
             $condition->setOperation('==');
