@@ -2,22 +2,11 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Application;
 use App\Entity\Condition;
-use App\Entity\Configuration;
-use App\Entity\Image;
-use App\Entity\Menu;
-use App\Entity\MenuItem;
-use App\Entity\Organization;
 use App\Entity\Rule;
-use App\Entity\Slug;
-use App\Entity\Style;
-use App\Entity\Template;
-use App\Entity\TemplateGroup;
 use Conduction\CommonGroundBundle\Service\CommonGroundService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ZuiddrechtFixtures extends Fixture
