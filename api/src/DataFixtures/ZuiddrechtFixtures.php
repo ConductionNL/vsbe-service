@@ -3,11 +3,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\Application;
+use App\Entity\Condition;
 use App\Entity\Configuration;
 use App\Entity\Image;
 use App\Entity\Menu;
 use App\Entity\MenuItem;
 use App\Entity\Organization;
+use App\Entity\Rule;
 use App\Entity\Slug;
 use App\Entity\Style;
 use App\Entity\Template;
@@ -44,6 +46,50 @@ class ZuiddrechtFixtures extends Fixture
             return false;
         }
 
-        //do something
+//        $rule = new Rule();
+//        $rule->setCode('vcs');
+//        $rule->setObject('VRC/request');
+//        $rule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'vcs', 'type'=>'request_conversions']));
+//
+//        $condition = new Condition();
+//        $condition->setProperty('action');
+//        $condition->setValue('CREATE');
+//        $condition->setOperation('==');
+//
+//        $rule->addCondition($condition);
+//
+//        $condition = new Condition();
+//        $condition->setProperty('@type');
+//        $condition->setValue('Request');
+//        $condition->setOperation('==');
+//
+//        $rule->addCondition($condition);
+//
+//        $manager->persist($rule);
+//
+//        $manager->flush();
+
+        $tsRule = new Rule();
+        $tsRule->setCode('ts');
+        $tsRule->setObject('VRC/request');
+        $tsRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component' => 'ts', 'type' => 'web_hooks']));
+
+        $condition = new Condition();
+        $condition->setProperty('@type');
+        $condition->setValue('Request');
+        $condition->setOperation('==');
+
+        $tsRule->addCondition($condition);
+
+        $condition = new Condition();
+        $condition->setProperty('requestType');
+        $condition->setValue($this->commonGroundService->cleanUrl(['component' => 'vtc', 'type' => 'request_types', 'id' => 'd0badfff-1c90-4ddb-80fc-49842d806eaa']));
+        $condition->setOperation('==');
+
+        $tsRule->addCondition($condition);
+
+        $manager->persist($tsRule);
+
+        $manager->flush();
     }
 }

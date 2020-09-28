@@ -3,11 +3,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\Application;
+use App\Entity\Condition;
 use App\Entity\Configuration;
 use App\Entity\Image;
 use App\Entity\Menu;
 use App\Entity\MenuItem;
 use App\Entity\Organization;
+use App\Entity\Rule;
 use App\Entity\Slug;
 use App\Entity\Style;
 use App\Entity\Template;
@@ -50,6 +52,52 @@ class CheckinFixtures extends Fixture implements DependentFixtureInterface
             return false;
         }
 
-        //do something
+        // Checkin vrc requests
+        $checkInRule = new Rule();
+        $checkInRule->setCode('chisRequests');
+        $checkInRule->setObject('VRC/request');
+        $checkInRule->setServiceEndpoint('http://chis.dev.svc.cluster.local/web_hooks');
+        //$checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
+
+        $condition = new Condition();
+        $condition->setProperty('@type');
+        $condition->setValue('Request');
+        $condition->setOperation('==');
+
+        $checkInRule->addCondition($condition);
+
+        $condition = new Condition();
+        $condition->setProperty('requestType');
+        if ($this->params->get('app_env') == 'prod') {
+            $condition->setValue('https://zuid-drecht.nl/api/v1/vtc/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+        } else {
+            $condition->setValue('https://dev.zuid-drecht.nl/api/v1/vtc/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
+        }
+
+        $condition->setOperation('==');
+
+        $checkInRule->addCondition($condition);
+
+        $manager->persist($checkInRule);
+
+        $manager->flush();
+
+        // Checkin chin checkins
+        $checkInRule = new Rule();
+        $checkInRule->setCode('chisCheckins');
+        $checkInRule->setObject('CHIN/checkin');
+        $checkInRule->setServiceEndpoint('http://chis.dev.svc.cluster.local/web_hooks');
+        //$checkInRule->setServiceEndpoint($this->commonGroundService->cleanUrl(['component'=>'chis', 'type'=>'web_hooks']));
+
+        $condition = new Condition();
+        $condition->setProperty('@type');
+        $condition->setValue('Checkin');
+        $condition->setOperation('==');
+
+        $checkInRule->addCondition($condition);
+
+        $manager->persist($checkInRule);
+
+        $manager->flush();
     }
 }
