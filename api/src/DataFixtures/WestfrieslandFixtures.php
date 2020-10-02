@@ -144,7 +144,7 @@ class WestfrieslandFixtures extends Fixture
         $condition->setValue('CREATE');
         $condition->setOperation('==');
 
-        $begrafenisRule->addCondition($condition);
+        $assentRule->addCondition($condition);
 
         $manager->persist($assentRule);
 
