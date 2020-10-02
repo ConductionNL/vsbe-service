@@ -122,5 +122,32 @@ class WestfrieslandFixtures extends Fixture
         $manager->persist($begrafenisRule);
 
         $manager->flush();
+
+        $assentRule = new Rule();
+        $assentRule->setCode('ias1');
+        $assentRule->setObject('IRC/assent');
+        if ($this->params->get('app_env') == 'prod') {
+            $assentRule->setServiceEndpoint('https://westfriesland.commonground.nu/api/v1/ias/web_hooks');
+        } else {
+            $assentRule->setServiceEndpoint('https://dev.westfriesland.commonground.nu/api/v1/ias/web_hooks');
+        }
+
+        $condition = new Condition();
+        $condition->setProperty('@type');
+        $condition->setValue('Assent');
+        $condition->setOperation('==');
+
+        $assentRule->addCondition($condition);
+
+        $condition = new Condition();
+        $condition->setProperty('action');
+        $condition->setValue('CREATE');
+        $condition->setOperation('==');
+
+        $begrafenisRule->addCondition($condition);
+
+        $manager->persist($assentRule);
+
+        $manager->flush();
     }
 }
