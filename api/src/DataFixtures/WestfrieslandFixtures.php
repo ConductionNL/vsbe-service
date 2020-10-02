@@ -22,7 +22,6 @@ class WestfrieslandFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-
         if (
             !$this->params->get('app_build_all_fixtures') &&
             $this->params->get('app_domain') != 'westfriesland.commonground.nu' && strpos($this->params->get('app_domain'), 'westfriesland.commonground.nu') == false
@@ -123,8 +122,6 @@ class WestfrieslandFixtures extends Fixture
         $manager->persist($begrafenisRule);
 
         $manager->flush();
-
-
 
         $assentRule = new Rule();
         $assentRule->setCode('ias1');
