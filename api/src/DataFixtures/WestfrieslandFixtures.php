@@ -36,7 +36,7 @@ class WestfrieslandFixtures extends Fixture
 
         $condition = new Condition();
         $condition->setProperty('action');
-        $condition->setValue('CREATE');
+        $condition->setValue('UPDATE');
         $condition->setOperation('==');
 
         $rule->addCondition($condition);
