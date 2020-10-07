@@ -12,7 +12,7 @@ info:
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsbe-php) 
     - Datamodel: [postman](/schema/vsbe.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
     
-    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
+    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
     
 paths:
   /audit_trails:
@@ -3146,33 +3146,6 @@ paths:
               - asc
               - desc
         -
-          name: 'order[property]'
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-        -
-          name: 'order[value]'
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-        -
-          name: 'order[operation]'
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-        -
           name: 'order[serviceEndpoint]'
           in: query
           required: false
@@ -3287,54 +3260,6 @@ paths:
             type: string
         -
           name: 'object[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: property
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'property[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: value
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'value[]'
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          style: form
-          explode: true
-        -
-          name: operation
-          in: query
-          required: false
-          schema:
-            type: string
-        -
-          name: 'operation[]'
           in: query
           required: false
           schema:
@@ -4552,6 +4477,98 @@ components:
         '@type':
           readOnly: true
           type: string
+    Condition-read:
+      type: object
+      properties:
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        property:
+          description: 'The property that is to be checked'
+          type: string
+        operation:
+          description: 'The operation to be checked'
+          type: string
+        value:
+          description: 'The value the property should have'
+          type: string
+        rule:
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
+          $ref: '#/components/schemas/Rule-read'
+    Condition-write:
+      type: object
+      properties:
+        property:
+          description: 'The property that is to be checked'
+          type: string
+        operation:
+          description: 'The operation to be checked'
+          type: string
+        value:
+          description: 'The value the property should have'
+          type: string
+        rule:
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
+          $ref: '#/components/schemas/Rule-write'
+    'Condition:jsonld-read':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        id:
+          readOnly: true
+          description: 'The UUID identifier of this resource'
+          externalDocs:
+            url: 'http://schema.org/identifier'
+          type: string
+          format: uuid
+        property:
+          description: 'The property that is to be checked'
+          type: string
+        operation:
+          description: 'The operation to be checked'
+          type: string
+        value:
+          description: 'The value the property should have'
+          type: string
+        rule:
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
+          $ref: '#/components/schemas/Rule:jsonld-read'
+    'Condition:jsonld-write':
+      type: object
+      properties:
+        '@context':
+          readOnly: true
+          type: string
+        '@id':
+          readOnly: true
+          type: string
+        '@type':
+          readOnly: true
+          type: string
+        property:
+          description: 'The property that is to be checked'
+          type: string
+        operation:
+          description: 'The operation to be checked'
+          type: string
+        value:
+          description: 'The value the property should have'
+          type: string
+        rule:
+          description: 'The rules that use this condition. If the value has to be read from the resource, prefix the property with "resourceValue:"'
+          $ref: '#/components/schemas/Rule:jsonld-write'
     Result-read:
       type: object
       description: ''
@@ -4743,21 +4760,11 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        property:
-          description: 'Property name'
-          type: string
-        value:
-          description: 'Value name'
-          type: string
         results:
           description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result-read'
-        operation:
-          description: Operation
-          type: string
-          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4773,12 +4780,14 @@ components:
           type: string
           format: date-time
           nullable: true
+        conditions:
+          description: 'The conditions that have to be met'
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition-read'
       required:
         - code
         - object
-        - property
-        - value
-        - operation
         - serviceEndpoint
     Rule-write:
       type: object
@@ -4786,9 +4795,6 @@ components:
       required:
         - code
         - object
-        - property
-        - value
-        - operation
         - serviceEndpoint
       properties:
         code:
@@ -4799,26 +4805,21 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        property:
-          description: 'Property name'
-          type: string
-        value:
-          description: 'Value name'
-          type: string
         results:
           description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result-write'
-        operation:
-          description: Operation
-          type: string
-          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+        conditions:
+          description: 'The conditions that have to be met'
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition-write'
     'Rule:jsonld-read':
       type: object
       description: ''
@@ -4847,21 +4848,11 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        property:
-          description: 'Property name'
-          type: string
-        value:
-          description: 'Value name'
-          type: string
         results:
           description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-read'
-        operation:
-          description: Operation
-          type: string
-          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
@@ -4877,12 +4868,14 @@ components:
           type: string
           format: date-time
           nullable: true
+        conditions:
+          description: 'The conditions that have to be met'
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition:jsonld-read'
       required:
         - code
         - object
-        - property
-        - value
-        - operation
         - serviceEndpoint
     'Rule:jsonld-write':
       type: object
@@ -4890,9 +4883,6 @@ components:
       required:
         - code
         - object
-        - property
-        - value
-        - operation
         - serviceEndpoint
       properties:
         '@context':
@@ -4912,26 +4902,21 @@ components:
           externalDocs:
             url: 'http://schema.org/url'
           type: string
-        property:
-          description: 'Property name'
-          type: string
-        value:
-          description: 'Value name'
-          type: string
         results:
           description: 'The results of this rule'
           type: array
           items:
             $ref: '#/components/schemas/Result:jsonld-write'
-        operation:
-          description: Operation
-          type: string
-          nullable: true
         serviceEndpoint:
           description: 'Url of endpoint.'
           externalDocs:
             url: 'http://schema.org/url'
           type: string
+        conditions:
+          description: 'The conditions that have to be met'
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition:jsonld-write'
 definitions:
   Result-read:
     properties:
@@ -5012,21 +4997,6 @@ definitions:
         example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
-      property:
-        description: 'Property name'
-        type: string
-        example: property
-        maxLength: 255
-      value:
-        description: 'Value name'
-        type: string
-        example: value
-        maxLength: 255
-      operation:
-        description: Operation
-        type: string
-        example: operation
-        maxLength: 255
       serviceEndpoint:
         description: 'Url of endpoint.'
         type: string
@@ -5042,12 +5012,12 @@ definitions:
       results:
         description: 'The results of this rule'
         type: '\ArrayCollection|\Result[]'
+      conditions:
+        description: 'The conditions that have to be met'
+        type: '\ArrayCollection|\Condition[]'
     required:
       - code
       - object
-      - property
-      - value
-      - operation
       - serviceEndpoint
   Rule-write:
     properties:
@@ -5062,21 +5032,6 @@ definitions:
         example: 'https://vtc.dev.zuid-drecht.nl/request_types'
         maxLength: 255
         format: url
-      property:
-        description: 'Property name'
-        type: string
-        example: property
-        maxLength: 255
-      value:
-        description: 'Value name'
-        type: string
-        example: value
-        maxLength: 255
-      operation:
-        description: Operation
-        type: string
-        example: operation
-        maxLength: 255
       serviceEndpoint:
         description: 'Url of endpoint.'
         type: string
@@ -5086,12 +5041,12 @@ definitions:
       results:
         description: 'The results of this rule'
         type: '\ArrayCollection|\Result[]'
+      conditions:
+        description: 'The conditions that have to be met'
+        type: '\ArrayCollection|\Condition[]'
     required:
       - code
       - object
-      - property
-      - value
-      - operation
       - serviceEndpoint
   ChangeLog-read:
     properties:
@@ -5131,12 +5086,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-14 10:10:14'
+        example: '2020-09-28 10:23:32'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-14 10:10:14'
+        example: '2020-09-28 10:23:32'
     required: []
   ChangeLog-write:
     properties:
@@ -5250,12 +5205,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-08-14 10:10:14'
+        example: '2020-09-28 10:23:32'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-08-14 10:10:14'
+        example: '2020-09-28 10:23:32'
     required: []
   AuditTrail-write:
     properties:
@@ -5308,8 +5263,8 @@ securityDefinitions:
 host: irc.zaakonline.nl
 servers:
   -
-    name: westfriesland.commonground.nu
-    url: vsbe.dev.westfriesland.commonground.nu
+    name: zuid-drecht.nl
+    url: vsbe.dev.zuid-drecht.nl
 externalDocs:
   -
     description: 'OAS Documentatie'
