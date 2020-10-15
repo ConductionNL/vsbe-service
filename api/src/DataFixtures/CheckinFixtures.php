@@ -56,6 +56,13 @@ class CheckinFixtures extends Fixture implements DependentFixtureInterface
         $checkInRule->addCondition($condition);
 
         $condition = new Condition();
+        $condition->setProperty('status');
+        $condition->setValue('submitted');
+        $condition->setOperation('==');
+
+        $checkInRule->addCondition($condition);
+
+        $condition = new Condition();
         $condition->setProperty('requestType');
         if ($this->params->get('app_env') == 'prod') {
             $condition->setValue('https://zuid-drecht.nl/api/v1/vtc/request_types/c328e6b4-77f6-4c58-8544-4128452acc80');
