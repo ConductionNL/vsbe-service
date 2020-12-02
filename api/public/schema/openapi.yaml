@@ -10,9 +10,9 @@ info:
     - Version: V.0.1
     - Repository: [online](https://github.com/ConductionNL/vsbe-service) / [zip](https://github.com/ConductionNL/vsbe-service/archive/master.zip)
     - Docker Image: [online](https://hub.docker.com/repository/docker/conduction/vsbe-php) 
-    - Datamodel: [postman](/schema/vsbe.postman_collection.json) / [oas](/schema/openapi.yaml) / [pdf](/schema/datamodel.pdf) / [modelio (zip)](/schema/Datamodel_Modelio.zip) 
+    - Datamodel: [postman](schema/vsbe.postman_collection.json) / [oas](schema/openapi.yaml) / [pdf](schema/datamodel.pdf) / [modelio (zip)](schema/Datamodel_Modelio.zip) 
     
-    Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.         
+    'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'         
     
 paths:
   /audit_trails:
@@ -4160,18 +4160,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -4179,6 +4184,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -4290,18 +4296,23 @@ components:
         route:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         endpoint:
           description: 'The endpoint that the request was made to'
           type: string
+          nullable: true
         method:
           description: 'The method that was used'
           type: string
+          nullable: true
         accept:
           description: 'The contentType that was reqousted'
           type: string
+          nullable: true
         contentType:
           description: 'The contentType that was suplieds'
           type: string
+          nullable: true
         content:
           description: 'The moment this request was created'
           type: string
@@ -4309,6 +4320,7 @@ components:
         ip:
           description: 'The moment this request was created'
           type: string
+          nullable: true
         session:
           description: 'The moment this request was created'
           type: string
@@ -5048,59 +5060,6 @@ definitions:
       - code
       - object
       - serviceEndpoint
-  ChangeLog-read:
-    properties:
-      id:
-        description: 'The UUID identifier of this object'
-        type: string
-        example: e2984465-190a-4562-829e-a8cca81aa35d
-        format: uuid
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-      action:
-        description: ''
-        type: string
-      objectId:
-        description: ''
-        type: string
-      objectClass:
-        description: ''
-        type: string
-      version:
-        description: ''
-        type: int
-      data:
-        description: ''
-        type: array
-      username:
-        description: ''
-        type: string
-      session:
-        description: 'The moment this request was created'
-        type: string
-        maxLength: 255
-      dateCreated:
-        description: 'The moment this request was created'
-        type: string
-        format: date-time
-        example: '2020-09-28 10:23:32'
-      dateModified:
-        description: 'The moment this request last Modified'
-        type: string
-        format: date-time
-        example: '2020-09-28 10:23:32'
-    required: []
-  ChangeLog-write:
-    properties:
-      note:
-        description: 'A note conserning this log lin'
-        type: string
-        example: 'This log line is suspicius'
-        maxLength: 2555
-    required: []
   AuditTrail-read:
     properties:
       id:
@@ -5205,12 +5164,12 @@ definitions:
         description: 'The moment this request was created'
         type: string
         format: date-time
-        example: '2020-09-28 10:23:32'
+        example: '2020-12-02 13:11:07'
       dateModified:
         description: 'The moment this request last Modified'
         type: string
         format: date-time
-        example: '2020-09-28 10:23:32'
+        example: '2020-12-02 13:11:07'
     required: []
   AuditTrail-write:
     properties:
@@ -5218,6 +5177,59 @@ definitions:
         description: 'A note conserning this log lin'
         type: string
         example: 'This log line looks suspicius'
+        maxLength: 2555
+    required: []
+  ChangeLog-read:
+    properties:
+      id:
+        description: 'The UUID identifier of this object'
+        type: string
+        example: e2984465-190a-4562-829e-a8cca81aa35d
+        format: uuid
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
+        maxLength: 2555
+      action:
+        description: ''
+        type: string
+      objectId:
+        description: ''
+        type: string
+      objectClass:
+        description: ''
+        type: string
+      version:
+        description: ''
+        type: int
+      data:
+        description: ''
+        type: array
+      username:
+        description: ''
+        type: string
+      session:
+        description: 'The moment this request was created'
+        type: string
+        maxLength: 255
+      dateCreated:
+        description: 'The moment this request was created'
+        type: string
+        format: date-time
+        example: '2020-12-02 13:11:07'
+      dateModified:
+        description: 'The moment this request last Modified'
+        type: string
+        format: date-time
+        example: '2020-12-02 13:11:07'
+    required: []
+  ChangeLog-write:
+    properties:
+      note:
+        description: 'A note conserning this log lin'
+        type: string
+        example: 'This log line is suspicius'
         maxLength: 2555
     required: []
 tags:
@@ -5234,13 +5246,13 @@ tags:
       
       
   -
-    name: ChangeLog
+    name: AuditTrail
     description: |
       An resource representing a log line.
       
       This entity represents a product that can be ordered via the OrderRegistratieComponent.
   -
-    name: AuditTrail
+    name: ChangeLog
     description: |
       An resource representing a log line.
       
@@ -5251,15 +5263,15 @@ securityDefinitions:
     authorizationUrl: 'http://petstore.swagger.io/api/oauth/dialog'
     flow: implicit
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
   JWT-Token:
     type: apiKey
     in: header
     name: Authorization
     scopes:
-      read: 'read right to the AuditTrail resource'
-      write: 'write right to the AuditTrail resource'
+      read: 'read right to the ChangeLog resource'
+      write: 'write right to the ChangeLog resource'
 host: irc.zaakonline.nl
 servers:
   -

@@ -10,7 +10,7 @@ settings:
   version: V.0.1
   majorVersion: v1
   id: 
-  description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
+  description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
   repro: https://github.com/ConductionNL/vsbe-service
   demo: vsbe.zuid-drecht.nl
@@ -27,7 +27,7 @@ settings:
   unit: Common-Ground
   env: dev
   web: false
-  internal: 
+  internal: false
   debug: 1
   cache: 1
   replicaCount: 1
