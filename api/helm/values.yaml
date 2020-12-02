@@ -8,7 +8,7 @@ settings:
   name: vsbe
   title: Very small business engine
   version: V.0.1
-  majorVersion: 
+  majorVersion: v1
   id: 
   description: '&#039;Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.&#039;'
   type: component
@@ -27,7 +27,7 @@ settings:
   unit: Common-Ground
   env: dev
   web: false
-  internal: 
+  internal: false
   debug: 1
   cache: 1
   replicaCount: 1
