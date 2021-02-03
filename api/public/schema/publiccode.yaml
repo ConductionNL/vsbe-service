@@ -119,4 +119,4 @@ dependsOn:
 
 installations:
     - type: helm
-      url: "https://github.com/ConductionNL/vsbe-service/raw/master/api/helm/vsbe-0.1.0.tgz"
+      url: "https://raw.githubusercontent.com/ConductionNL/vsbe-service/master/api/helm/"
