@@ -1,4 +1,4 @@
-# vsbe
+# vsbe-service
 
 Description
 ----
